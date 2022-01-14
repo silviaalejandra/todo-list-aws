@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     parameters {
-        string(name: 'ENVIRONMENT',
-               defaultValue: "STAGING")
+        choice choices: ['staging', 'production'], name: 'ENVIRONMENT',
+               defaultValue: "staging"
     }
     
     stages {
