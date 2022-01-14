@@ -56,6 +56,7 @@ En el output del despliegue se devolverá el API Gateway Endpoint URL
 ## Despliegue manual de la aplicación SAM en local
 
 A continuación se describen los comandos/acciones a realizar para poder probar la aplicación en local:
+
 ```bash
 ## Crear red de docker
 docker network create sam
