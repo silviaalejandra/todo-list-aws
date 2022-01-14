@@ -1,5 +1,12 @@
 pipeline {
     agent any
+    
+    environment 
+    {
+    
+        ENVIRONMENT="staging"  
+    }
+    
     stages {
         
         stage('SetUp'){
