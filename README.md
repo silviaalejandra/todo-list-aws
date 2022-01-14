@@ -56,6 +56,11 @@ En el output del despliegue se devolverá el API Gateway Endpoint URL
 ## Despliegue manual de la aplicación SAM en local
 
 A continuación se describen los comandos/acciones a realizar para poder probar la aplicación en local:
+
+Se agrega en el host el dns de la base local
+vim /etc/hosts
+127.0.0.1 dynamodb
+
 ```bash
 ## Crear red de docker
 docker network create sam
