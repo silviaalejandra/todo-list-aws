@@ -82,7 +82,6 @@ sam logs -n GetTodoFunction --stack-name todo-list-aws-staging
 ```
 
 ## Tests
-
 Se encuentran en la carpeta `test` que tiene la siguiente estructura:
 ```
 - test
@@ -131,8 +130,9 @@ pipelines/common-steps/integration.sh
 ## Pipelines
 
 Para la implementación del CI/CD de la aplicación se utilizan los siguientes Pipelines:
-*	**PIPELINE-FULL-STAGING**: (PIPELINE-FULL-STAGING/Jenkinsfile) Este pipeline es el encargado de configurar el entorno de staging y ejecutar las pruebas
-*	**PIPELINE-FULL-PRODUCTION**: (PIPELINE-FULL-PRODUCTION/Jenkinsfile) Este pipeline es el encargado de configurar el entorno de production y ejecutar las pruebas
+*   **pipeline_deploy_parameter: (pipelines/Jenkinsfile) Estre pipeline es el encargado de configurar entorno de staging o production en base a los parametros recibidos.
+*       En caso de que sea entorno stage se ejecutan las pruebas obtenidas desde PIPELINE-FULL-staging/
+*       En caso de que sea entorno prod se saltea la ejecucion de pruebas
 *	**PIPELINE-FULL-CD**: este pipeline es el encargado de enganchar los pipelines de staging y production,  con el objetivo de completar un ciclo de despliegue continuo desde un commit al repositorio de manera automática.
 
 

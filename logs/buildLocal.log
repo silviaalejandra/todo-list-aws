@@ -1,0 +1,22 @@
+voclabs:~/repoROunir/todo-list-aws (feature) $ sam build --use-container
+Starting Build inside a container
+Building codeuri: /home/ubuntu/repoROunir/todo-list-aws/src runtime: python3.7 metadata: {} architecture: x86_64 functions: ['CreateTodoFunction', 'ListTodosFunction', 'GetTodoFunction', 'UpdateTodoFunction', 'DeleteTodoFunction']
+
+Fetching public.ecr.aws/sam/build-python3.7:latest-x86_64 Docker container image..........................................................................................................................................................................................................................................................................................................................................................................................
+Mounting /home/ubuntu/repoROunir/todo-list-aws/src as /tmp/samcli/source:ro,delegated inside runtime container
+
+Build Succeeded
+
+Built Artifacts  : .aws-sam/build
+Built Template   : .aws-sam/build/template.yaml
+
+Commands you can use next
+=========================
+[*] Invoke Function: sam local invoke
+[*] Deploy: sam deploy --guided
+    
+Running PythonPipBuilder:ResolveDependencies
+Running PythonPipBuilder:CopySource
+
+SAM CLI update available (1.37.0); (1.33.0 installed)
+To download: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html
