@@ -22,3 +22,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.3] - 2022-01-15
 - Se agregan los logs de jenkins del despliegue en staging
 - Se agregar los logs de jenkins del despliegue de production
+- Se realizan cambios en el archivo /pipelines/PIPELINE-FULL-CD/Jenkinsfile para utilizar los Job de Jenkins del pipeline multibranch
