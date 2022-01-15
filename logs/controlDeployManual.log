@@ -1,0 +1,80 @@
+voclabs:~ $ curl -X POST https://4wbm0hc01j.execute-api.us-east-1.amazonaws.com/Prod/todos --data '{ "text": "Learn Serverless" }'
+curl: (6) Could not resolve host: 4wbm0hc01j.execute-api.us-east-1.amazonaws.com
+voclabs:~ $ 
+voclabs:~ $ 
+voclabs:~ $ curl -X POST https://z0r067mmml.execute-api.us-east-1.amazonaws.com/Prod/todos --data '{ "text": "Learn Serverless" }'                                          
+{"statusCode": 200, "body": "{\"id\": \"a35a95d8-759e-11ec-b8f1-ce7fac5bbda4\", \"text\": \"Learn Serverless\", \"checked\": false, \"createdAt\": \"1642208474.615089\", \"updatedAt\": \"1642208474.615089\"}"}voclabs:~ $ 
+voclabs:~ $ curl -X POST https://z0r067mmml.execute-api.us-east-1.amazonaws.com/Prod/todos
+{"message": "Internal server error"}voclabs:~ $ curl -X POST https://z0r067mmml.execute-api.us-east-1.amazonaws.com/Prod/todos^C
+voclabs:~ $ curl https://z0r067mmml.execute-api.us-east-1.amazonaws.com/Prod/todos
+[{"checked": false, "createdAt": "1642208474.615089", "text": "Learn Serverless", "id": "a35a95d8-759e-11ec-b8f1-ce7fac5bbda4", "updatedAt": "1642208474.615089"}]voclabs:~ $ 
+voclabs:~ $ curl https://z0r067mmml.execute-api.us-east-1.amazonaws.com/Prod/todos/a35a95d8-759e-11ec-b8f1-ce7fac5bbda4
+{"checked": false, "createdAt": "1642208474.615089", "text": "Learn Serverless", "id": "a35a95d8-759e-11ec-b8f1-ce7fac5bbda4", "updatedAt": "1642208474.615089"}voclabs:~ $ 
+voclabs:~ $ curl -X PUT https://z0r067mmml.execute-api.us-east-1.amazonaws.com/Prod/todos/<id> --data '{ "text": "Learn python and more", "checked": true }'
+bash: id: No such file or directory
+voclabs:~ $ curl -X PUT https://z0r067mmml.execute-api.us-east-1.amazonaws.com/Prod/todos/a35a95d8-759e-11ec-b8f1-ce7fac5bbda4 --data '{ "text": "Learn python and more", "checked": true }'
+{"checked": true, "createdAt": "1642208474.615089", "text": "Learn python and more", "id": "a35a95d8-759e-11ec-b8f1-ce7fac5bbda4", "updatedAt": 1642208657080}voclabs:~ $ 
+voclabs:~ $ curl -X DELETE https://z0r067mmml.execute-api.us-east-1.amazonaws.com/Prod/todos/a35a95d8-759e-11ec-b8f1-ce7fac5bbda4
+voclabs:~ $ curl https://z0r067mmml.execute-api.us-east-1.amazonaws.com/Prod/todos/a35a95d8-759e-11ec-b8f1-ce7fac5bbda4 -v
+*   Trying 99.86.231.51...
+* TCP_NODELAY set
+* Connected to z0r067mmml.execute-api.us-east-1.amazonaws.com (99.86.231.51) port 443 (#0)
+* ALPN, offering h2
+* ALPN, offering http/1.1
+* successfully set certificate verify locations:
+*   CAfile: /etc/ssl/certs/ca-certificates.crt
+  CApath: /etc/ssl/certs
+* TLSv1.3 (OUT), TLS handshake, Client hello (1):
+* TLSv1.3 (IN), TLS handshake, Server hello (2):
+* TLSv1.3 (IN), TLS Unknown, Certificate Status (22):
+* TLSv1.3 (IN), TLS handshake, Unknown (8):
+* TLSv1.3 (IN), TLS Unknown, Certificate Status (22):
+* TLSv1.3 (IN), TLS handshake, Certificate (11):
+* TLSv1.3 (IN), TLS Unknown, Certificate Status (22):
+* TLSv1.3 (IN), TLS handshake, CERT verify (15):
+* TLSv1.3 (IN), TLS Unknown, Certificate Status (22):
+* TLSv1.3 (IN), TLS handshake, Finished (20):
+* TLSv1.3 (OUT), TLS change cipher, Client hello (1):
+* TLSv1.3 (OUT), TLS Unknown, Certificate Status (22):
+* TLSv1.3 (OUT), TLS handshake, Finished (20):
+* SSL connection using TLSv1.3 / TLS_AES_128_GCM_SHA256
+* ALPN, server accepted to use h2
+* Server certificate:
+*  subject: CN=*.execute-api.us-east-1.amazonaws.com
+*  start date: Nov 10 00:00:00 2021 GMT
+*  expire date: Dec  9 23:59:59 2022 GMT
+*  subjectAltName: host "z0r067mmml.execute-api.us-east-1.amazonaws.com" matched cert's "*.execute-api.us-east-1.amazonaws.com"
+*  issuer: C=US; O=Amazon; OU=Server CA 1B; CN=Amazon
+*  SSL certificate verify ok.
+* Using HTTP2, server supports multi-use
+* Connection state changed (HTTP/2 confirmed)
+* Copying HTTP/2 data in stream buffer to connection buffer after upgrade: len=0
+* TLSv1.3 (OUT), TLS Unknown, Unknown (23):
+* TLSv1.3 (OUT), TLS Unknown, Unknown (23):
+* TLSv1.3 (OUT), TLS Unknown, Unknown (23):
+* Using Stream ID: 1 (easy handle 0x55cb60613620)
+* TLSv1.3 (OUT), TLS Unknown, Unknown (23):
+> GET /Prod/todos/a35a95d8-759e-11ec-b8f1-ce7fac5bbda4 HTTP/2
+> Host: z0r067mmml.execute-api.us-east-1.amazonaws.com
+> User-Agent: curl/7.58.0
+> Accept: */*
+> 
+* TLSv1.3 (IN), TLS Unknown, Unknown (23):
+* Connection state changed (MAX_CONCURRENT_STREAMS updated)!
+* TLSv1.3 (OUT), TLS Unknown, Unknown (23):
+* TLSv1.3 (IN), TLS Unknown, Unknown (23):
+* TLSv1.3 (IN), TLS Unknown, Unknown (23):
+< HTTP/2 404 
+< content-type: application/json
+< content-length: 0
+< date: Sat, 15 Jan 2022 01:05:13 GMT
+< x-amzn-requestid: 4f33cf81-c819-463f-8507-94457d52c6e1
+< x-amz-apigw-id: L9mXgFS3IAMFzSA=
+< x-amzn-trace-id: Root=1-61e21dc9-3fd35d3a5bfa110f286f38a2;Sampled=0
+< x-cache: Error from cloudfront
+< via: 1.1 72b77c557ac4c265c32d99bdef4e9d6a.cloudfront.net (CloudFront)
+< x-amz-cf-pop: IAD79-C3
+< x-amz-cf-id: eXv9g4UdrtOGOpuzLa7LLDJzQpjlvk4i82LHtO1AAdlVRm_0QpogBQ==
+< 
+* Connection #0 to host z0r067mmml.execute-api.us-east-1.amazonaws.com left intact
+voclabs:~ $ 
