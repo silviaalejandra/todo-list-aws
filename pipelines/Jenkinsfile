@@ -18,7 +18,7 @@ pipeline {
                     if ( params.ENVIRONMENT == 'production' ) {
                         currentBuild.result = 'SUCCESS'
                         println "No cumple las condiciones para implementar en ${ENVIRONMENT} desde una rama de feature/dev"
-                        return
+                        exit
                     }
                 }
             }
