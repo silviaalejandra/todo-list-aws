@@ -16,9 +16,8 @@ pipeline {
             steps{
                 script {
                     if ( params.ENVIRONMENT == 'production' ) {
+                        error "No cumple las condiciones para implementar en ${ENVIRONMENT} desde una rama de feature/dev"
                         currentBuild.result = 'SUCCESS'
-                        println "No cumple las condiciones para implementar en ${ENVIRONMENT} desde una rama de feature/dev"
-                        exit
                     }
                 }
             }
