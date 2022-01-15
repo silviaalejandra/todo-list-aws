@@ -6,6 +6,22 @@ pipeline {
     }
     
     stages {
+    
+        stage('controlenvironment'){
+        when {
+            not {
+                branch 'master'
+            }
+        }
+            steps{
+                script {
+                    if ( ${ENVIRONMENT} = 'production' ) then{
+                        skipRemainingStages = true
+                        println "skipRemainingStages = ${skipRemainingStages}"
+                    }
+                }
+            }
+        }
         
         stage('SetUp'){
             steps{
@@ -15,13 +31,13 @@ pipeline {
         }
         stage('Test'){
         when {
-                expression { params.ENVIRONMENT == 'STAGING' }
+                expression { params.ENVIRONMENT == 'staging' }
             }
             steps{
                 echo 'Static program analysis:'
-                sh "bash pipelines/PIPELINE-FULL-STAGING/static_test.sh"
+                sh "bash pipelines/PIPELINE-FULL-${ENVIRONMENT}/static_test.sh"
                 echo 'Unit testing:'
-                sh "bash pipelines/PIPELINE-FULL-STAGING/unit_test.sh"
+                sh "bash pipelines/PIPELINE-FULL-${ENVIRONMENT}/unit_test.sh"
             }
             post {
                 always {
