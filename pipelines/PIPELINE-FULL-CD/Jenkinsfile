@@ -5,7 +5,7 @@ pipeline {
         stage('Staging'){
             steps{
                 echo 'Starting staging job'
-                build job: 'PIPELINE-FULL-STAGING', parameters: [
+                build job: 'pipeline_deploy_parameter/develop', parameters: [
                       string(name:'ENVIRONMENT', value: "staging")]
             }
         }
@@ -28,7 +28,7 @@ pipeline {
             steps{
                 
                 echo 'Starting production job'
-                build job: 'PIPELINE-FULL-PRODUCTION', parameters: [
+                build job: 'pipeline_deploy_parameter/master', parameters: [
                       string(name:'ENVIRONMENT', value: "production")]
             }
         }

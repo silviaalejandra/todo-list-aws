@@ -17,3 +17,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Se crear Jenkinsfile parametrizable para ejecucion de staging y production
 - Se cambian los nombres de los directorios PIPELINE-FULL-STAGING y PIPELINE-FULL-PRODUCTION por PIPELINE-FULL-staging PIPELINE-FULL-production para poder realizar la parametría del pipeline multibranch
 - Se actualiza README con los cambios en la configuracion del pipeline para ejecucion full staging o full production
+- Se agrega log de deply manual realizado desde consola (logs/deployManual.log)
+- 
+## [1.0.3] - 2022-01-15
+- Se agregan los logs de jenkins del despliegue en staging
+- Se agregar los logs de jenkins del despliegue de production
