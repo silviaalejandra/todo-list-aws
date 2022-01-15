@@ -13,3 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Se actualizan los bucket en el archivo samconfig.toml
 - Se actualiza README con pasos realizados para levantar entorno local
 - 
+## [1.0.2] - 2022-01-14
+- Se crear Jenkinsfile parametrizable para ejecucion de staging y production
+- Se cambian los nombres de los directorios PIPELINE-FULL-STAGING y PIPELINE-FULL-PRODUCTION por PIPELINE-FULL-staging PIPELINE-FULL-production para poder realizar la parametría del pipeline multibranch
+- Se actualiza README con los cambios en la configuracion del pipeline para ejecucion full staging o full production
