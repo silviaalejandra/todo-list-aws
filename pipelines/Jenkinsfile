@@ -15,7 +15,7 @@ pipeline {
         }
             steps{
                 script {
-                    if ( params.ENVIRONMENT == 'production' ) then{
+                    if ( params.ENVIRONMENT == 'production' ) {
                         skipRemainingStages = true
                         println "skipRemainingStages = ${skipRemainingStages}"
                     }
