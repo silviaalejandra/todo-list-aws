@@ -16,8 +16,9 @@ pipeline {
             steps{
                 script {
                     if ( params.ENVIRONMENT == 'production' ) {
-                        skipRemainingStages = true
-                        println "skipRemainingStages = ${skipRemainingStages}"
+                        currentBuild.result = 'SUCCESS'
+                        println "No cumple las condiciones para implementar en ${ENVIRONMENT} desde una rama de feature/dev"
+                        return
                     }
                 }
             }
