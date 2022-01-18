@@ -125,6 +125,8 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertRaises(Exception, get_item("", self.dynamodb))
         self.assertRaises(Exception, get_item("50", self.dynamodb))
         self.assertRaises(Exception, get_item(50, self.dynamodb))
+        self.assertRaises(Exception, get_item('', self.dynamodb))
+        self.assertRaises(TypeError, get_item('#', self.dynamodb))
         print ('End: test_get_todo_error')
     
     def test_list_todo(self):
