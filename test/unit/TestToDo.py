@@ -6,6 +6,7 @@ from moto import mock_dynamodb2
 import sys
 import os
 import json
+import random
 
 @mock_dynamodb2
 class TestDatabaseFunctions(unittest.TestCase):
@@ -88,7 +89,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Start: test_get_todo')
         from src.todoList import get_item
         from src.todoList import put_item
-
+        
         # Testing file functions
         # Table mock
         responsePut = put_item(self.text, self.dynamodb)
@@ -110,6 +111,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Start: test_get_todo_error')
         # Testing file functions
         from src.todoList import get_item
+        hash = random.getrandbits(128)
         # from src.todoList import put_item
         
         # responsePut = put_item(self.text, self.dynamodb)
@@ -118,8 +120,8 @@ class TestDatabaseFunctions(unittest.TestCase):
         # print ('Id item:' + idItem)
         
         # Table mock
-        self.assertRaises(Exception, get_item(1+2, self.dynamodb))
-        #self.assertRaises(Exception, get_item(None, self.dynamodb))
+        self.assertRaises(Exception, get_item(hash, self.dynamodb))
+        self.assertRaises(Exception, get_item(None, True))
         print ('End: test_get_todo_error')
     
     def test_list_todo(self):
