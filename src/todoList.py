@@ -29,15 +29,13 @@ def get_item(key, dynamodb=None):
                 'id': key
             }
         )
-        if 'Item' in result:
-            print('Result getItem:'+str(result))
-        else:
-            raise Exception("no existen datos coincidentes con la busqueda.")
 
     except ClientError as e:
         print(e.response['Error']['Message'])
     else:
-        return result['Item']
+        if 'Item' in result:
+            print('Result getItem:'+str(result))
+            return result['Item']
 
 
 def get_items(dynamodb=None):
