@@ -128,7 +128,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         # Table mock
         # self.assertRaises(Exception, get_item(hash, self.dynamodb))
         # self.assertRaises(TypeError, get_item(hash, self.dynamodb))
-        self.assertRaises(Exception, get_item(None, True))
+        self.assertRaises(Exception, get_item(None, self.dynamodb))
         print ('End: test_get_todo_error')
     
     def test_list_todo(self):
