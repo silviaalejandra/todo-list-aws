@@ -77,10 +77,9 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('---------------------')
         print ('Start: test_put_todo_error')
         # Testing file functions
-        self.dynamodb = boto3.resource('dynamodb123', region_name='us-east-1')
         from src.todoList import put_item
         # Table mock
-        self.assertRaises(Exception, put_item("", self.dynamodb))
+        self.assertRaises(Exception, put_item(1 + '1', self.dynamodb))
         # self.assertRaises(Exception, put_item("", self.dynamodb))
         print ('End: test_put_todo_error')
 
