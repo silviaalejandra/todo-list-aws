@@ -118,7 +118,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         # print ('Id item:' + idItem)
         
         # Table mock
-        self.assertRaises(Exception, get_item(None, None))
+        self.assertRaises(Exception, get_item(None, self.dynamodb))
         self.assertRaises(Exception, get_item(None, self.dynamodb))
         print ('End: test_get_todo_error')
     
