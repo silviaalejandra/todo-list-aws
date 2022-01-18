@@ -155,25 +155,25 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertRaises(
             Exception,
             update_item(
-                None,
                 updated_text,
-                True,
-                self.dynamodb), True)
+                None,
+                "false",
+                self.dynamodb))
         self.assertRaises(
             TypeError,
             update_item(
-                self.uuid,
-                "",
                 None,
+                self.uuid,
+                "false",
                 self.dynamodb))
         self.assertRaises(
             Exception,
             update_item(
-                self.uuid,
                 updated_text,
-                123,
+                self.uuid,
+                None,
                 self.dynamodb))
-        print ('End: test_update_todo_error')
+        print ('End: atest_update_todo_error')
 
     def test_delete_todo(self):
         print ('---------------------')
@@ -197,7 +197,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Start: test_delete_todo_error')
         from src.todoList import delete_item
         # Testing file functions
-        self.assertRaises(TypeError, delete_item(None, self.dynamodb))
+        self.assertRaises(TypeError, delete_item("", self.dynamodb))
         print ('End: test_delete_todo_error')
 
 
