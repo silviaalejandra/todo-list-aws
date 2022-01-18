@@ -79,8 +79,8 @@ class TestDatabaseFunctions(unittest.TestCase):
         # Testing file functions
         from src.todoList import put_item
         # Table mock
-        self.assertRaises(Exception, put_item('1', self.dynamodb))
-        # self.assertRaises(Exception, put_item("", self.dynamodb))
+        with self.assertRaises(Exception): put_item(None, self.dynamodb)
+        #self.assertRaises(Exception, put_item("", self.dynamodb))
         print ('End: test_put_todo_error')
 
     def test_get_todo(self):
@@ -155,7 +155,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertRaises(
             Exception,
             update_item(
-                '1',
+                None,
                 updated_text,
                 True,
                 self.dynamodb), True)
@@ -164,7 +164,7 @@ class TestDatabaseFunctions(unittest.TestCase):
             update_item(
                 self.uuid,
                 "",
-                False,
+                None,
                 self.dynamodb))
         self.assertRaises(
             Exception,
