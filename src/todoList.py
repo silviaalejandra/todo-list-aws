@@ -33,8 +33,8 @@ def get_item(key, dynamodb=None):
     except ClientError as e:
         print(e.response['Error']['Message'])
     else:
-        print('Result getItem:'+str(result))
         if 'Item' in result:
+            print('Result getItem:'+str(result))
             return result['Item']
 
 

@@ -115,20 +115,12 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Start: test_get_todo_error')
         # Testing file functions
         from src.todoList import get_item
-        from src.todoList import delete_item
-        # hash = random.getrandbits(128)
-        # from src.todoList import put_item
-        
-        # responsePut = put_item(self.text, self.dynamodb)
-        # print ('Response put_item:' + str(responsePut))
-        # idItem = json.loads(responsePut['body'])['id']
-        # print ('Id item:' + idItem)
-        # delete_item(None, self.dynamodb)
         
         # Table mock
-        # self.assertRaises(Exception, get_item(hash, self.dynamodb))
-        # self.assertRaises(TypeError, get_item(hash, self.dynamodb))
-        self.assertRaises(Exception, get_item(str(uuid.uuid1()), self.dynamodb))
+        self.assertRaises(Exception, get_item(None, self.dynamodb))
+        self.assertRaises(TypeError, get_item(40, self.dynamodb))
+        self.assertRaises(Exception, get_item(40, self.dynamodb))
+        
         print ('End: test_get_todo_error')
     
     def test_list_todo(self):
