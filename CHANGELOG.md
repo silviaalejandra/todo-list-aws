@@ -23,3 +23,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Se agregan los logs de jenkins del despliegue en staging
 - Se agregar los logs de jenkins del despliegue de production
 - Se realizan cambios en el archivo /pipelines/PIPELINE-FULL-CD/Jenkinsfile para utilizar los Job de Jenkins del pipeline multibranch
+- 
+## [1.0.4] - 2022-01-18
+- Se saltan las fucniones realacionada a la base de datos en las pruenas unitarias del archivo src/todoList.py 
+-   linea10: def get_table(dynamodb=None):   # pragma: no cover
+-   Linea 146:         raise AssertionError()   # pragma: no cover
+- Se cambian los valores enviados para el control de error de vacío a nulo en el archivo test/unit/TestToDo.py
+-   Lineas 179 a 200
+-   Se actualiza la funcion src/todoList get_item. Se mueve la sentencia return Item dentro del IF para evitar enviar un objeto item cuando no hay en la base

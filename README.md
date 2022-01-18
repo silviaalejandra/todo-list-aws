@@ -130,9 +130,9 @@ pipelines/common-steps/integration.sh
 ## Pipelines
 
 Para la implementación del CI/CD de la aplicación se utilizan los siguientes Pipelines:
-*   **pipeline_deploy_parameter: (pipelines/Jenkinsfile) Estre pipeline es el encargado de configurar entorno de staging o production en base a los parametros recibidos.
-*       En caso de que sea entorno stage se ejecutan las pruebas obtenidas desde PIPELINE-FULL-staging/
-*       En caso de que sea entorno prod se saltea la ejecucion de pruebassam
+* **pipeline_deploy_parameter***: (pipelines/Jenkinsfile) Este pipeline es el encargado de configurar entorno de staging o production en base a los parametros recibidos.
+  * En caso de que sea entorno stage se ejecutan las pruebas obtenidas desde PIPELINE-FULL-staging/
+  * En caso de que sea entorno prod se saltea la ejecucion de pruebas de regresion
 *	**PIPELINE-FULL-CD**: este pipeline es el encargado de enganchar los pipelines de staging y production,  con el objetivo de completar un ciclo de despliegue continuo desde un commit al repositorio de manera automática.
 
 

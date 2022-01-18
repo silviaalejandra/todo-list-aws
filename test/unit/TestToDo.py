@@ -6,6 +6,8 @@ from moto import mock_dynamodb2
 import sys
 import os
 import json
+# import random
+# import uuid
 
 @mock_dynamodb2
 class TestDatabaseFunctions(unittest.TestCase):
@@ -78,9 +80,14 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Start: test_put_todo_error')
         # Testing file functions
         from src.todoList import put_item
+        
         # Table mock
+        self.assertRaises(Exception, put_item(None, self.dynamodb))
         self.assertRaises(Exception, put_item("", self.dynamodb))
-        self.assertRaises(Exception, put_item("", self.dynamodb))
+        self.assertRaises(Exception, put_item(" ", self.dynamodb))
+        self.assertRaises(Exception, put_item("45", self.dynamodb))
+        self.assertRaises(Exception, put_item(45, self.dynamodb))
+        self.assertRaises(TypeError, put_item(True, self.dynamodb))
         print ('End: test_put_todo_error')
 
     def test_get_todo(self):
@@ -88,7 +95,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Start: test_get_todo')
         from src.todoList import get_item
         from src.todoList import put_item
-
+        
         # Testing file functions
         # Table mock
         responsePut = put_item(self.text, self.dynamodb)
@@ -104,6 +111,23 @@ class TestDatabaseFunctions(unittest.TestCase):
             self.text,
             responseGet['text'])
         print ('End: test_get_todo')
+    
+    def test_get_todo_error(self):
+        print ('---------------------')
+        print ('Start: test_get_todo_error')
+        # Testing file functions
+        from src.todoList import get_item
+        
+        # Table mock
+        self.assertRaises(Exception, get_item(None, self.dynamodb))
+        self.assertRaises(Exception, get_item(" ", self.dynamodb))
+        self.assertRaises(TypeError, get_item(True, self.dynamodb))
+        self.assertRaises(Exception, get_item("", self.dynamodb))
+        self.assertRaises(Exception, get_item("50", self.dynamodb))
+        self.assertRaises(Exception, get_item(50, self.dynamodb))
+        self.assertRaises(Exception, get_item('', self.dynamodb))
+        self.assertRaises(TypeError, get_item('#', self.dynamodb))
+        print ('End: test_get_todo_error')
     
     def test_list_todo(self):
         print ('---------------------')
@@ -156,13 +180,13 @@ class TestDatabaseFunctions(unittest.TestCase):
             Exception,
             update_item(
                 updated_text,
-                "",
+                None,
                 "false",
                 self.dynamodb))
         self.assertRaises(
             TypeError,
             update_item(
-                "",
+                None,
                 self.uuid,
                 "false",
                 self.dynamodb))
@@ -171,7 +195,7 @@ class TestDatabaseFunctions(unittest.TestCase):
             update_item(
                 updated_text,
                 self.uuid,
-                "",
+                None,
                 self.dynamodb))
         print ('End: atest_update_todo_error')
 
@@ -197,7 +221,11 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Start: test_delete_todo_error')
         from src.todoList import delete_item
         # Testing file functions
-        self.assertRaises(TypeError, delete_item("", self.dynamodb))
+        self.assertRaises(TypeError, delete_item(None, self.dynamodb))
+        self.assertRaises(Exception, delete_item(None, self.dynamodb))
+        self.assertRaises(Exception, delete_item(" ", self.dynamodb))
+        self.assertRaises(Exception, delete_item("45", self.dynamodb))
+        self.assertRaises(Exception, delete_item(45, self.dynamodb))
         print ('End: test_delete_todo_error')
 
 

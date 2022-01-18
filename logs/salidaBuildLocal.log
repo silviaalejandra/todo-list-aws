@@ -1,0 +1,237 @@
+voclabs:~/repoROunir/todo-list-aws (feature) $ sam build --use-container
+Starting Build inside a container
+Building codeuri: /home/ubuntu/repoROunir/todo-list-aws/src runtime: python3.7 metadata: {} architecture: x86_64 functions: ['CreateTodoFunction', 'ListTodosFunction', 'GetTodoFunction', 'UpdateTodoFunction', 'DeleteTodoFunction']
+
+Fetching public.ecr.aws/sam/build-python3.7:latest-x86_64 Docker container image..........................................................................................................................................................................................................................................................................................................................................................................................
+Mounting /home/ubuntu/repoROunir/todo-list-aws/src as /tmp/samcli/source:ro,delegated inside runtime container
+
+Build Succeeded
+
+Built Artifacts  : .aws-sam/build
+Built Template   : .aws-sam/build/template.yaml
+
+Commands you can use next
+=========================
+[*] Invoke Function: sam local invoke
+[*] Deploy: sam deploy --guided
+    
+Running PythonPipBuilder:ResolveDependencies
+Running PythonPipBuilder:CopySource
+
+SAM CLI update available (1.37.0); (1.33.0 installed)
+To download: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html
+voclabs:~/repoROunir/todo-list-aws (feature) $ sam local start-api --port 8080 --env-vars localEnvironment.json --docker-network sam
+Mounting DeleteTodoFunction at http://127.0.0.1:8080/todos/{id} [DELETE]
+Mounting ListTodosFunction at http://127.0.0.1:8080/todos [GET]
+Mounting UpdateTodoFunction at http://127.0.0.1:8080/todos/{id} [PUT]
+Mounting CreateTodoFunction at http://127.0.0.1:8080/todos [POST]
+Mounting GetTodoFunction at http://127.0.0.1:8080/todos/{id} [GET]
+You can now browse to the above endpoints to invoke your functions. You do not need to restart/reload SAM CLI while working on your functions, changes will be reflected instantly/automatically. You only need to restart SAM CLI if you update your AWS SAM template
+2022-01-14 13:41:50  * Running on http://127.0.0.1:8080/ (Press CTRL+C to quit)
+2022-01-14 13:42:21 127.0.0.1 - - [14/Jan/2022 13:42:21] code 400, message Bad request syntax ('ÿôÿý\x06')
+2022-01-14 13:42:21 127.0.0.1 - - [14/Jan/2022 13:42:21] "ÿôÿý" HTTPStatus.BAD_REQUEST -
+Invoking list.list (python3.7)
+Image was not found.
+Removing rapid images for repo public.ecr.aws/sam/emulation-python3.7
+Building image.................................................................................................
+Skip pulling image and use local one: public.ecr.aws/sam/emulation-python3.7:rapid-1.33.0-x86_64.
+
+Mounting /home/ubuntu/repoROunir/todo-list-aws/.aws-sam/build/ListTodosFunction as /var/task:ro,delegated inside runtime container
+START RequestId: b2ef843f-4f03-45ab-8ae1-7ce99466429c Version: $LATEST
+URL dynamoDB:http://dynamodb:8000
+END RequestId: b2ef843f-4f03-45ab-8ae1-7ce99466429c
+REPORT RequestId: b2ef843f-4f03-45ab-8ae1-7ce99466429c  Init Duration: 0.13 ms  Duration: 763.31 ms     Billed Duration: 764 ms Memory Size: 128 MB     Max Memory Used: 128 MB
+No Content-Type given. Defaulting to 'application/json'.
+2022-01-14 13:44:01 127.0.0.1 - - [14/Jan/2022 13:44:01] "GET /todos/ HTTP/1.1" 200 -
+Invoking create.create (python3.7)
+Skip pulling image and use local one: public.ecr.aws/sam/emulation-python3.7:rapid-1.33.0-x86_64.
+
+Mounting /home/ubuntu/repoROunir/todo-list-aws/.aws-sam/build/CreateTodoFunction as /var/task:ro,delegated inside runtime container
+START RequestId: 0934ae45-5932-4ece-9478-46b4b5ec1c86 Version: $LATEST
+URL dynamoDB:http://dynamodb:8000
+Table name:local-TodosDynamoDbTable
+END RequestId: 0934ae45-5932-4ece-9478-46b4b5ec1c86
+REPORT RequestId: 0934ae45-5932-4ece-9478-46b4b5ec1c86  Init Duration: 0.31 ms  Duration: 592.73 ms     Billed Duration: 593 ms Memory Size: 128 MB     Max Memory Used: 128 MB
+No Content-Type given. Defaulting to 'application/json'.
+2022-01-14 13:52:48 127.0.0.1 - - [14/Jan/2022 13:52:48] "POST /todos HTTP/1.1" 200 -
+Invoking list.list (python3.7)
+Skip pulling image and use local one: public.ecr.aws/sam/emulation-python3.7:rapid-1.33.0-x86_64.
+
+Mounting /home/ubuntu/repoROunir/todo-list-aws/.aws-sam/build/ListTodosFunction as /var/task:ro,delegated inside runtime container
+START RequestId: c268c19f-4889-4038-b7ec-6f30fb74a15f Version: $LATEST
+URL dynamoDB:http://dynamodb:8000
+END RequestId: c268c19f-4889-4038-b7ec-6f30fb74a15f
+REPORT RequestId: c268c19f-4889-4038-b7ec-6f30fb74a15f  Init Duration: 0.04 ms  Duration: 351.89 ms     Billed Duration: 352 ms Memory Size: 128 MB     Max Memory Used: 128 MB
+No Content-Type given. Defaulting to 'application/json'.
+2022-01-14 13:53:12 127.0.0.1 - - [14/Jan/2022 13:53:12] "GET /todos HTTP/1.1" 200 -
+Invoking get.get (python3.7)
+Skip pulling image and use local one: public.ecr.aws/sam/emulation-python3.7:rapid-1.33.0-x86_64.
+
+Mounting /home/ubuntu/repoROunir/todo-list-aws/.aws-sam/build/GetTodoFunction as /var/task:ro,delegated inside runtime container
+START RequestId: 48059815-88dd-4f1a-a53a-23ef70999aba Version: $LATEST
+URL dynamoDB:http://dynamodb:8000
+Result getItem:{'Item': {'checked': False, 'createdAt': '1642168368.2656732', 'id': '4209a02e-7541-11ec-b3fe-0242ac110002', 'text': 'Learn Serverless', 'updatedAt': '1642168368.2656732'}, 'ResponseMetadata': {'RequestId': 'f22b4111-176d-49d2-9741-4260f1cc8013', 'HTTPStatusCode': 200, 'HTTPHeaders': {'date': 'Fri, 14 Jan 2022 13:54:15 GMT', 'content-type': 'application/x-amz-json-1.0', 'x-amz-crc32': '2069309443', 'x-amzn-requestid': 'f22b4111-176d-49d2-9741-4260f1cc8013', 'content-length': '195', 'server': 'Jetty(9.4.18.v20190429)'}, 'RetryAttempts': 0}}
+END RequestId: 48059815-88dd-4f1a-a53a-23ef70999aba
+REPORT RequestId: 48059815-88dd-4f1a-a53a-23ef70999aba  Init Duration: 0.15 ms  Duration: 519.65 ms     Billed Duration: 520 ms Memory Size: 128 MB     Max Memory Used: 128 MB
+No Content-Type given. Defaulting to 'application/json'.
+2022-01-14 13:54:15 127.0.0.1 - - [14/Jan/2022 13:54:15] "GET /todos/4209a02e-7541-11ec-b3fe-0242ac110002 HTTP/1.1" 200 -
+Invoking update.update (python3.7)
+Skip pulling image and use local one: public.ecr.aws/sam/emulation-python3.7:rapid-1.33.0-x86_64.
+
+Mounting /home/ubuntu/repoROunir/todo-list-aws/.aws-sam/build/UpdateTodoFunction as /var/task:ro,delegated inside runtime container
+START RequestId: 6c877174-043d-4aa4-9eb7-531a58014d67 Version: $LATEST
+URL dynamoDB:http://dynamodb:8000
+END RequestId: 6c877174-043d-4aa4-9eb7-531a58014d67
+REPORT RequestId: 6c877174-043d-4aa4-9eb7-531a58014d67  Init Duration: 2.01 ms  Duration: 573.50 ms     Billed Duration: 574 ms Memory Size: 128 MB     Max Memory Used: 128 MB
+No Content-Type given. Defaulting to 'application/json'.
+2022-01-14 13:55:13 127.0.0.1 - - [14/Jan/2022 13:55:13] "PUT /todos/4209a02e-7541-11ec-b3fe-0242ac110002 HTTP/1.1" 200 -
+Invoking update.update (python3.7)
+Skip pulling image and use local one: public.ecr.aws/sam/emulation-python3.7:rapid-1.33.0-x86_64.
+
+Mounting /home/ubuntu/repoROunir/todo-list-aws/.aws-sam/build/UpdateTodoFunction as /var/task:ro,delegated inside runtime container
+START RequestId: 8973284c-1b53-4a45-88ef-15fb6a83c029 Version: $LATEST
+URL dynamoDB:http://dynamodb:8000
+END RequestId: 8973284c-1b53-4a45-88ef-15fb6a83c029
+REPORT RequestId: 8973284c-1b53-4a45-88ef-15fb6a83c029  Init Duration: 0.06 ms  Duration: 559.89 ms     Billed Duration: 560 ms Memory Size: 128 MB     Max Memory Used: 128 MB
+No Content-Type given. Defaulting to 'application/json'.
+2022-01-14 13:56:51 127.0.0.1 - - [14/Jan/2022 13:56:51] "PUT /todos/1236875114-55222s5555-sss555 HTTP/1.1" 200 -
+Invoking create.create (python3.7)
+Skip pulling image and use local one: public.ecr.aws/sam/emulation-python3.7:rapid-1.33.0-x86_64.
+
+Mounting /home/ubuntu/repoROunir/todo-list-aws/.aws-sam/build/CreateTodoFunction as /var/task:ro,delegated inside runtime container
+START RequestId: cd4651b4-1f7b-467d-bc6b-6a248050a13a Version: $LATEST
+[ERROR] 2022-01-14T14:01:43.281Z        cd4651b4-1f7b-467d-bc6b-6a248050a13a    Validation failed
+
+    raise Exception("Couldn't create the todo item.")
+END RequestId: cd4651b4-1f7b-467d-bc6b-6a248050a13a
+REPORT RequestId: cd4651b4-1f7b-467d-bc6b-6a248050a13a  Init Duration: 3.33 ms  Duration: 376.80 ms     Billed Duration: 377 ms Memory Size: 128 MB     Max Memory Used: 128 MB
+Lambda returned empty body!
+Invalid lambda response received: Invalid API Gateway Response Keys: {'errorType', 'stackTrace', 'errorMessage'} in {'errorMessage': "Couldn't create the todo item.", 'errorType': 'Exception', 'stackTrace': ['  File "/var/task/create.py", line 10, in create\n    raise Exception("Couldn\'t create the todo item.")\n']}
+2022-01-14 14:01:43 127.0.0.1 - - [14/Jan/2022 14:01:43] "POST /todos HTTP/1.1" 502 -
+Invoking create.create (python3.7)
+Skip pulling image and use local one: public.ecr.aws/sam/emulation-python3.7:rapid-1.33.0-x86_64.
+
+Mounting /home/ubuntu/repoROunir/todo-list-aws/.aws-sam/build/CreateTodoFunction as /var/task:ro,delegated inside runtime container
+START RequestId: d4d6bb64-b1d4-48c9-af92-1396a78d306e Version: $LATEST
+URL dynamoDB:http://dynamodb:8000
+Table name:local-TodosDynamoDbTable
+END RequestId: d4d6bb64-b1d4-48c9-af92-1396a78d306e
+REPORT RequestId: d4d6bb64-b1d4-48c9-af92-1396a78d306e  Init Duration: 1.19 ms  Duration: 562.21 ms     Billed Duration: 563 ms Memory Size: 128 MB     Max Memory Used: 128 MB
+No Content-Type given. Defaulting to 'application/json'.
+2022-01-14 14:02:20 127.0.0.1 - - [14/Jan/2022 14:02:20] "POST /todos HTTP/1.1" 200 -
+Invoking create.create (python3.7)
+Skip pulling image and use local one: public.ecr.aws/sam/emulation-python3.7:rapid-1.33.0-x86_64.
+
+Mounting /home/ubuntu/repoROunir/todo-list-aws/.aws-sam/build/CreateTodoFunction as /var/task:ro,delegated inside runtime container
+START RequestId: f721f97d-1ce2-4bef-8658-224bd4fe02ae Version: $LATEST
+[ERROR] 2022-01-14T14:03:29.606Z        f721f97d-1ce2-4bef-8658-224bd4fe02ae    Validation failed
+
+    raise Exception("Couldn't create the todo item.")
+END RequestId: f721f97d-1ce2-4bef-8658-224bd4fe02ae
+REPORT RequestId: f721f97d-1ce2-4bef-8658-224bd4fe02ae  Init Duration: 0.12 ms  Duration: 364.12 ms     Billed Duration: 365 ms Memory Size: 128 MB     Max Memory Used: 128 MB
+Lambda returned empty body!
+Invalid lambda response received: Invalid API Gateway Response Keys: {'errorType', 'stackTrace', 'errorMessage'} in {'errorMessage': "Couldn't create the todo item.", 'errorType': 'Exception', 'stackTrace': ['  File "/var/task/create.py", line 10, in create\n    raise Exception("Couldn\'t create the todo item.")\n']}
+2022-01-14 14:03:29 127.0.0.1 - - [14/Jan/2022 14:03:29] "POST /todos HTTP/1.1" 502 -
+Invoking get.get (python3.7)
+Skip pulling image and use local one: public.ecr.aws/sam/emulation-python3.7:rapid-1.33.0-x86_64.
+
+Mounting /home/ubuntu/repoROunir/todo-list-aws/.aws-sam/build/GetTodoFunction as /var/task:ro,delegated inside runtime container
+URL dynamoDB:http://dynamodb:8000
+Result getItem:{'Item': {'checked': False, 'createdAt': '1642168940.3839614', 'id': '970b897e-7542-11ec-909a-0242ac110002', 'text': 'prueba de un PUT', 'updatedAt': '1642168940.3839614'}, 'ResponseMetadata': {'RequestId': '31317dbd-ec14-4c73-b41e-69fd6bfc5bc8', 'HTTPStatusCode': 200, 'HTTPHeaders': {'date': 'Fri, 14 Jan 2022 14:03:43 GMT', 'content-type': 'application/x-amz-json-1.0', 'x-amz-crc32': '123150168', 'x-amzn-requestid': '31317dbd-ec14-4c73-b41e-69fd6bfc5bc8', 'content-length': '195', 'server': 'Jetty(9.4.18.v20190429)'}, 'RetryAttempts': 0}}
+END RequestId: 0069c35f-443f-4356-b1b3-46bdfcefeaf6
+REPORT RequestId: 0069c35f-443f-4356-b1b3-46bdfcefeaf6  Init Duration: 1.53 ms  Duration: 357.06 ms     Billed Duration: 358 ms Memory Size: 128 MB     Max Memory Used: 128 MB
+No Content-Type given. Defaulting to 'application/json'.
+2022-01-14 14:03:44 127.0.0.1 - - [14/Jan/2022 14:03:44] "GET /todos/970b897e-7542-11ec-909a-0242ac110002 HTTP/1.1" 200 -
+Invoking delete.delete (python3.7)
+Skip pulling image and use local one: public.ecr.aws/sam/emulation-python3.7:rapid-1.33.0-x86_64.
+
+Mounting /home/ubuntu/repoROunir/todo-list-aws/.aws-sam/build/DeleteTodoFunction as /var/task:ro,delegated inside runtime container
+URL dynamoDB:http://dynamodb:8000
+END RequestId: 3fc39f4f-0101-4663-85a5-5e92a8756740
+REPORT RequestId: 3fc39f4f-0101-4663-85a5-5e92a8756740  Init Duration: 0.34 ms  Duration: 410.06 ms     Billed Duration: 411 ms Memory Size: 128 MB     Max Memory Used: 128 MB
+Lambda returned empty body!
+No Content-Type given. Defaulting to 'application/json'.
+2022-01-14 14:10:30 127.0.0.1 - - [14/Jan/2022 14:10:30] "DELETE /todos/970b897e-7542-11ec-909a-0242ac110002 HTTP/1.1" 200 -
+Invoking get.get (python3.7)
+Skip pulling image and use local one: public.ecr.aws/sam/emulation-python3.7:rapid-1.33.0-x86_64.
+
+Mounting /home/ubuntu/repoROunir/todo-list-aws/.aws-sam/build/GetTodoFunction as /var/task:ro,delegated inside runtime container
+URL dynamoDB:http://dynamodb:8000
+Result getItem:{'ResponseMetadata': {'RequestId': 'ed36c213-4b7d-4c1f-b317-e1d7b17cddc9', 'HTTPStatusCode': 200, 'HTTPHeaders': {'date': 'Fri, 14 Jan 2022 14:10:50 GMT', 'content-type': 'application/x-amz-json-1.0', 'x-amz-crc32': '2745614147', 'x-amzn-requestid': 'ed36c213-4b7d-4c1f-b317-e1d7b17cddc9', 'content-length': '2', 'server': 'Jetty(9.4.18.v20190429)'}, 'RetryAttempts': 0}}
+END RequestId: 124aa528-2fd8-4ef7-869a-f004c77a0375
+REPORT RequestId: 124aa528-2fd8-4ef7-869a-f004c77a0375  Init Duration: 0.42 ms  Duration: 402.54 ms     Billed Duration: 403 ms Memory Size: 128 MB     Max Memory Used: 128 MB
+No Content-Type given. Defaulting to 'application/json'.
+2022-01-14 14:10:50 127.0.0.1 - - [14/Jan/2022 14:10:50] "GET /todos/970b897e-7542-11ec-909a-0242ac110002 HTTP/1.1" 404 -
+Invoking create.create (python3.7)
+Skip pulling image and use local one: public.ecr.aws/sam/emulation-python3.7:rapid-1.33.0-x86_64.
+
+Mounting /home/ubuntu/repoROunir/todo-list-aws/.aws-sam/build/CreateTodoFunction as /var/task:ro,delegated inside runtime container
+START RequestId: b154fbf9-2d22-428b-824b-b7de31986a62 Version: $LATEST
+URL dynamoDB:http://dynamodb:8000
+Table name:local-TodosDynamoDbTable
+END RequestId: b154fbf9-2d22-428b-824b-b7de31986a62
+REPORT RequestId: b154fbf9-2d22-428b-824b-b7de31986a62  Init Duration: 0.42 ms  Duration: 495.27 ms     Billed Duration: 496 ms Memory Size: 128 MB     Max Memory Used: 128 MB
+No Content-Type given. Defaulting to 'application/json'.
+2022-01-14 14:11:08 127.0.0.1 - - [14/Jan/2022 14:11:08] "POST /todos HTTP/1.1" 200 -
+Invoking create.create (python3.7)
+Skip pulling image and use local one: public.ecr.aws/sam/emulation-python3.7:rapid-1.33.0-x86_64.
+
+Mounting /home/ubuntu/repoROunir/todo-list-aws/.aws-sam/build/CreateTodoFunction as /var/task:ro,delegated inside runtime container
+URL dynamoDB:http://dynamodb:8000
+Table name:local-TodosDynamoDbTable
+END RequestId: 342b1779-577f-42a0-8533-ad0449a9d6cf
+REPORT RequestId: 342b1779-577f-42a0-8533-ad0449a9d6cf  Init Duration: 0.12 ms  Duration: 405.08 ms     Billed Duration: 406 ms Memory Size: 128 MB     Max Memory Used: 128 MB
+No Content-Type given. Defaulting to 'application/json'.
+2022-01-14 14:12:26 127.0.0.1 - - [14/Jan/2022 14:12:26] "POST /todos HTTP/1.1" 200 -
+Invoking update.update (python3.7)
+Skip pulling image and use local one: public.ecr.aws/sam/emulation-python3.7:rapid-1.33.0-x86_64.
+
+Mounting /home/ubuntu/repoROunir/todo-list-aws/.aws-sam/build/UpdateTodoFunction as /var/task:ro,delegated inside runtime container
+START RequestId: 5b944d69-dc08-4c1b-b78d-7237e825f0cb Version: $LATEST
+URL dynamoDB:http://dynamodb:8000
+END RequestId: 5b944d69-dc08-4c1b-b78d-7237e825f0cb
+REPORT RequestId: 5b944d69-dc08-4c1b-b78d-7237e825f0cb  Init Duration: 3.60 ms  Duration: 520.69 ms     Billed Duration: 521 ms Memory Size: 128 MB     Max Memory Used: 128 MB
+No Content-Type given. Defaulting to 'application/json'.
+2022-01-14 14:15:47 127.0.0.1 - - [14/Jan/2022 14:15:47] "PUT /todos/0004bf3a-7544-11ec-8054-0242ac110002 HTTP/1.1" 200 -
+Invoking update.update (python3.7)
+Skip pulling image and use local one: public.ecr.aws/sam/emulation-python3.7:rapid-1.33.0-x86_64.
+
+Mounting /home/ubuntu/repoROunir/todo-list-aws/.aws-sam/build/UpdateTodoFunction as /var/task:ro,delegated inside runtime container
+START RequestId: 58ee8e7d-4ff5-421f-aa46-5b8eb7ff6928 Version: $LATEST
+URL dynamoDB:http://dynamodb:8000
+END RequestId: 58ee8e7d-4ff5-421f-aa46-5b8eb7ff6928
+REPORT RequestId: 58ee8e7d-4ff5-421f-aa46-5b8eb7ff6928  Init Duration: 0.35 ms  Duration: 341.31 ms     Billed Duration: 342 ms Memory Size: 128 MB     Max Memory Used: 128 MB
+No Content-Type given. Defaulting to 'application/json'.
+2022-01-14 14:17:58 127.0.0.1 - - [14/Jan/2022 14:17:58] "PUT /todos/970b897e-7542-11ec-909a-0242ac110002 HTTP/1.1" 200 -
+Invoking get.get (python3.7)
+Skip pulling image and use local one: public.ecr.aws/sam/emulation-python3.7:rapid-1.33.0-x86_64.
+
+Mounting /home/ubuntu/repoROunir/todo-list-aws/.aws-sam/build/GetTodoFunction as /var/task:ro,delegated inside runtime container
+START RequestId: 87df116e-4d54-46e1-89a7-c90fc2086ca6 Version: $LATEST
+URL dynamoDB:http://dynamodb:8000
+Result getItem:{'Item': {'checked': True, 'id': '970b897e-7542-11ec-909a-0242ac110002', 'text': 'cambiando data', 'updatedAt': Decimal('1642169877980')}, 'ResponseMetadata': {'RequestId': '00b9e0e9-982f-4cf4-b56a-1878b2273629', 'HTTPStatusCode': 200, 'HTTPHeaders': {'date': 'Fri, 14 Jan 2022 14:18:42 GMT', 'content-type': 'application/x-amz-json-1.0', 'x-amz-crc32': '753360119', 'x-amzn-requestid': '00b9e0e9-982f-4cf4-b56a-1878b2273629', 'content-length': '148', 'server': 'Jetty(9.4.18.v20190429)'}, 'RetryAttempts': 0}}
+END RequestId: 87df116e-4d54-46e1-89a7-c90fc2086ca6
+REPORT RequestId: 87df116e-4d54-46e1-89a7-c90fc2086ca6  Init Duration: 0.27 ms  Duration: 364.92 ms     Billed Duration: 365 ms Memory Size: 128 MB     Max Memory Used: 128 MB
+No Content-Type given. Defaulting to 'application/json'.
+2022-01-14 14:18:43 127.0.0.1 - - [14/Jan/2022 14:18:43] "GET /todos/970b897e-7542-11ec-909a-0242ac110002 HTTP/1.1" 200 -
+Invoking delete.delete (python3.7)
+Skip pulling image and use local one: public.ecr.aws/sam/emulation-python3.7:rapid-1.33.0-x86_64.
+
+Mounting /home/ubuntu/repoROunir/todo-list-aws/.aws-sam/build/DeleteTodoFunction as /var/task:ro,delegated inside runtime container
+START RequestId: 509fab76-3d94-4052-ab07-f7da59c0f4a6 Version: $LATEST
+URL dynamoDB:http://dynamodb:8000
+END RequestId: 509fab76-3d94-4052-ab07-f7da59c0f4a6
+REPORT RequestId: 509fab76-3d94-4052-ab07-f7da59c0f4a6  Init Duration: 0.14 ms  Duration: 356.96 ms     Billed Duration: 357 ms Memory Size: 128 MB     Max Memory Used: 128 MB
+Lambda returned empty body!
+No Content-Type given. Defaulting to 'application/json'.
+2022-01-14 14:19:00 127.0.0.1 - - [14/Jan/2022 14:19:00] "DELETE /todos/970b897e-7542-11ec-909a-0242ac110002 HTTP/1.1" 200 -
+Invoking get.get (python3.7)
+Skip pulling image and use local one: public.ecr.aws/sam/emulation-python3.7:rapid-1.33.0-x86_64.
+
+Mounting /home/ubuntu/repoROunir/todo-list-aws/.aws-sam/build/GetTodoFunction as /var/task:ro,delegated inside runtime container
+URL dynamoDB:http://dynamodb:8000
+Result getItem:{'ResponseMetadata': {'RequestId': '6d312c5c-3cd9-48c9-b1e5-c7f7dbbd8a01', 'HTTPStatusCode': 200, 'HTTPHeaders': {'date': 'Fri, 14 Jan 2022 14:19:05 GMT', 'content-type': 'application/x-amz-json-1.0', 'x-amz-crc32': '2745614147', 'x-amzn-requestid': '6d312c5c-3cd9-48c9-b1e5-c7f7dbbd8a01', 'content-length': '2', 'server': 'Jetty(9.4.18.v20190429)'}, 'RetryAttempts': 0}}
+END RequestId: f381f9cd-9433-4b63-bcc5-3f5d42c3c864
+REPORT RequestId: f381f9cd-9433-4b63-bcc5-3f5d42c3c864  Init Duration: 0.13 ms  Duration: 355.83 ms     Billed Duration: 356 ms Memory Size: 128 MB     Max Memory Used: 128 MB
+No Content-Type given. Defaulting to 'application/json'.
+2022-01-14 14:19:06 127.0.0.1 - - [14/Jan/2022 14:19:06] "GET /todos/970b897e-7542-11ec-909a-0242ac110002 HTTP/1.1" 404 -
