@@ -7,7 +7,7 @@ import functools
 from botocore.exceptions import ClientError
 
 
-def get_table(dynamodb=None): # pragma: no cover
+def get_table(dynamodb=None):   # pragma: no cover
     if not dynamodb:
         URL = os.environ['ENDPOINT_OVERRIDE']
         if URL:
