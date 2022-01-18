@@ -7,6 +7,7 @@ import sys
 import os
 import json
 import random
+import uuid
 
 @mock_dynamodb2
 class TestDatabaseFunctions(unittest.TestCase):
@@ -122,13 +123,12 @@ class TestDatabaseFunctions(unittest.TestCase):
         # print ('Response put_item:' + str(responsePut))
         # idItem = json.loads(responsePut['body'])['id']
         # print ('Id item:' + idItem)
-        delete_item(None, self.dynamodb)
-        print ('Item deleted succesfully')
+        # delete_item(None, self.dynamodb)
         
         # Table mock
         # self.assertRaises(Exception, get_item(hash, self.dynamodb))
         # self.assertRaises(TypeError, get_item(hash, self.dynamodb))
-        self.assertRaises(Exception, get_item(None, self.dynamodb))
+        self.assertRaises(Exception, get_item(str(uuid.uuid1()), self.dynamodb))
         print ('End: test_get_todo_error')
     
     def test_list_todo(self):
