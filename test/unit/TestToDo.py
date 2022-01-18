@@ -157,14 +157,14 @@ class TestDatabaseFunctions(unittest.TestCase):
             update_item(
                 '1',
                 updated_text,
-                'verdaderto',
-                self.dynamodb))
+                True,
+                self.dynamodb), True)
         self.assertRaises(
             TypeError,
             update_item(
                 self.uuid,
                 "",
-                "false",
+                False,
                 self.dynamodb))
         self.assertRaises(
             Exception,
