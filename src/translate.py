@@ -30,7 +30,7 @@ def lambda_handler(event, context):
         # source_language es inferido con el servicio comprehend de AWS
         # https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/comprehend.html
         source_language = comprehend.detect_dominant_language(
-            item['text']
+            Text = item['text']
         )
         logger.info(source_language)
         result = translate.translate_text(
