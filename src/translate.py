@@ -1,16 +1,16 @@
 import logging
 import json
 import boto3
-import os
+# import os
 import todoList
 import decimalencoder
 
 translate = boto3.client('translate')
-dynamodb = boto3.client('dynamodb')
-firehose = boto3.client('firehose')
+# dynamodb = boto3.client('dynamodb')
+# firehose = boto3.client('firehose')
 comprehend = boto3.client('comprehend')
 
-TABLE_NAME = os.getenv('DYNAMODB_TR_TABLE')
+# TABLE_NAME = os.getenv('DYNAMODB_TR_TABLE')
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -37,15 +37,12 @@ def lambda_handler(event, context):
         # Ordeno la lista de lenguajes por el mejor score
         order_languaje = sorted(source_language["Languages"], key=lambda k: k['Score'], reverse=True)
         logger.info(order_languaje)
-        # order_languaje = sorted(source_language, key=lambda k: k['Score'], reverse=True)
-        # logger.info(order_languaje)
-
-        # logger.info(source_language["Languages"][0]["LanguageCode"])
         
         # Obtengo el primero de la lista ordenada
         thelangcode = order_languaje[0]['LanguageCode']
         logger.info(thelangcode)
-        # logger.info(json.dumps(source_language, sort_keys=True, indent=4))
+        
+        # traduccion del texto
         result = translate.translate_text(
                     Text=item['text'], 
                     SourceLanguageCode=thelangcode, 
