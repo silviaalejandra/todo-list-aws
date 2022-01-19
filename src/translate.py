@@ -29,12 +29,8 @@ def lambda_handler(event, context):
         table_response = dynamodb.get_item(
             TableName=TABLE_NAME,
             Key={
-                'review_id': {
-                    'S': item['text'],
-                },
-                'language': {
-                    'S': target_language,
-                },
+                'review_id': item['text'],
+                'language': target_language
             }
         )
         logger.info(table_response)
