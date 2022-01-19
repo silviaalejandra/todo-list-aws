@@ -30,7 +30,7 @@ def lambda_handler(event, context):
             TableName=TABLE_NAME,
             Key={
                 'review_id': {
-                    'N': item['text'],
+                    'S': item['text'],
                 },
                 'language': {
                     'S': target_language,
@@ -76,7 +76,7 @@ def lambda_handler(event, context):
         TableName=TABLE_NAME,
         Item={
             'review_id': {
-                'N': item['text'],
+                'S': item['text'],
             },
             'language': {
                 'S': target_language,
