@@ -33,7 +33,7 @@ def lambda_handler(event, context):
             Text = item['text']
         )
         logger.info(source_language)
-        logger.info(source_language['LanguageCode'])
+        # logger.info(source_language['LanguageCode'])
         logger.info(json.dumps(source_language, sort_keys=True, indent=4))
         result = translate.translate_text(
                     Text=item['text'], 
