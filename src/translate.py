@@ -33,12 +33,12 @@ def lambda_handler(event, context):
             Text = item['text']
         )
         logger.info(source_language)
-        order_languaje = sorted(source_language, key=lambda k: k['score'], reverse=True)
+        order_languaje = sorted(source_language, key=lambda k: k["Languages"]['Score'], reverse=True)
         logger.info(order_languaje)
         logger.info(source_language["Languages"][0]["LanguageCode"])
 
         thelangcode = order_languaje["Languages"][0]["LanguageCode"]
-        
+        logger.info(thelangcode)
         logger.info(json.dumps(source_language, sort_keys=True, indent=4))
         result = translate.translate_text(
                     Text=item['text'], 
