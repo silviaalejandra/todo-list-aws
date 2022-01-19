@@ -43,7 +43,7 @@ def lambda_handler(event, context):
         # logger.info(source_language["Languages"][0]["LanguageCode"])
         
         # Obtengo el primero de la lista ordenada
-        thelangcode = order_languaje["LanguageCode"][0]
+        thelangcode = order_languaje[0]['LanguageCode']
         logger.info(thelangcode)
         # logger.info(json.dumps(source_language, sort_keys=True, indent=4))
         result = translate.translate_text(
