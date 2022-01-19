@@ -52,7 +52,7 @@ def lambda_handler(event, context):
     except Exception as e:
         # logger.error(response)
         raise Exception("[ErrorMessage]: " + str(e))
-    
+    else:
     # Creo la esrtuctura de respuesta del tipo todolist
     itemtranslated = {
         'id': item['id'],
@@ -63,5 +63,5 @@ def lambda_handler(event, context):
         "statusCode": 200,
         "body": json.dumps(itemtranslated, cls=decimalencoder.DecimalEncoder)
     }
-    logger.error(response)
+    logger.info(response)
     return response
