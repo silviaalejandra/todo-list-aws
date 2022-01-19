@@ -130,7 +130,7 @@ Resources:
       TableName: !Sub "${Stage}-TranslateDynamoDbTable"
       AttributeDefinitions: 
         - AttributeName: review_id
-          AttributeType: "N"
+          AttributeType: "S"
         - AttributeName: "languaje"
           AttributeType: "S"
       KeySchema: 
