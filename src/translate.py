@@ -33,7 +33,9 @@ def lambda_handler(event, context):
             Text = item['text']
         )
         logger.info(source_language)
-        order_languaje = sorted(source_language, key=lambda k: k["Languages"]['Score'], reverse=True)
+        order_languaje = sorted(source_language["Languages"], key=lambda k: k['Score'], reverse=True)
+        logger.info(order_languaje)
+        order_languaje = sorted(source_language, key=lambda k: k['Score'], reverse=True)
         logger.info(order_languaje)
         logger.info(source_language["Languages"][0]["LanguageCode"])
 
