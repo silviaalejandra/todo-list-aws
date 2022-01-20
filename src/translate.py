@@ -26,12 +26,15 @@ def lambda_handler(event, context):
         # source_language es inferido con el servicio comprehend de AWS
         # https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/comprehend.html
         source_language = comprehend.detect_dominant_language(
-            Text = item['text']
+            Text=item['text']
         )
         logger.info(source_language)
 
         # Ordeno la lista de lenguajes por el mejor score
-        order_languaje = sorted(source_language["Languages"], key = lambda k: k['Score'], reverse = True)
+        order_languaje = sorted(
+                source_language["Languages"],
+                key=lambda k: k['Score'],
+                reverse=True)
         logger.info(order_languaje)
 
         # Obtengo el primero de la lista ordenada
@@ -40,9 +43,9 @@ def lambda_handler(event, context):
 
         # traduccion del texto
         result = translate.translate_text(
-                    Text= item['text'],
-                    SourceLanguageCode= thelangcode,
-                    TargetLanguageCode= target_language
+                    Text=item['text'],
+                    SourceLanguageCode=thelangcode,
+                    TargetLanguageCode=target_language
                 )
         logging.info("Translation output: " + str(result))
     except Exception as e:
