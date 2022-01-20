@@ -10,6 +10,7 @@ comprehend = boto3.client('comprehend')
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
+
 def lambda_handler(event, context):
     logger.info(event)
     item = todoList.get_item(event['pathParameters']['id'])
@@ -39,9 +40,9 @@ def lambda_handler(event, context):
 
         # traduccion del texto
         result = translate.translate_text(
-                    Text = item['text'], 
-                    SourceLanguageCode = thelangcode, 
-                    TargetLanguageCode = target_language
+                    Text= item['text'],
+                    SourceLanguageCode= thelangcode,
+                    TargetLanguageCode= target_language
                 )
         logging.info("Translation output: " + str(result))
     except Exception as e:
