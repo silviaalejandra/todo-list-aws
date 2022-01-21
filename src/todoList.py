@@ -99,7 +99,8 @@ def get_item_languaje(text, comprehend=None):  # pragma: no cover
 
 
 # Traduzco el texto ingresado
-def translate_item(text, langorig, langdest, translate=None):  # pragma: no cover
+def translate_item(text, langorig, langdest, 
+            translate=None):  # pragma: no cover
     if not translate:
         translate = boto3.client('translate')
     try:
