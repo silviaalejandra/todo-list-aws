@@ -35,13 +35,13 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.dest_lang = "it"
         self.traduccion = "Scopri DevOps e Cloud presso UNIR"
         self.comprehend = boto3.client ('comprehend', 
-                                region_name='us-east-1'
+                                region_name='us-east-1',
                                 aws_access_key_id=os.environ['aws_key_id'],
                                 aws_secret_access_key=os.environ['aws_key'],
                                 aws_session_token=os.environ['aws_token']
                             )
         self.translate = boto3.client ('translate', 
-                                region_name='us-east-1'
+                                region_name='us-east-1',
                                 aws_access_key_id=os.environ['aws_key_id'],
                                 aws_secret_access_key=os.environ['aws_key'],
                                 aws_session_token=os.environ['aws_token']
