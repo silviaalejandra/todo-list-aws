@@ -90,12 +90,19 @@ def get_item_languaje(text, comprehend=None):  # pragma: no cover
                 reverse=True)
 
         # Obtengo el primero de la lista ordenada
-        thelangcode = order_languaje[0]['LanguageCode']
+        thelangcode = {
+            'text': order_languaje[0]['LanguageCode']
+        }
 
+        # create a response
+        response = {
+            "statusCode": 200,
+            "body": json.dumps(thelangcode)
+        }
     except ClientError as e:
         print(e.response['Error']['Message'])
     else:
-        return thelangcode
+        return response
 
 
 # Traduzco el texto ingresado

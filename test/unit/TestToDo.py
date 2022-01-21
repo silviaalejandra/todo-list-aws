@@ -169,6 +169,7 @@ class TestDatabaseFunctions(unittest.TestCase):
                 self.text,
                 comprehend)
         print ('Response Languaje:' + str(responseLanguaje))
+        self.assertEqual(200, responseLanguaje['statusCode'])
         self.assertEqual(responseLanguaje,self.origin_lang)
         print ('End: test_get_languaje---------------')
 
