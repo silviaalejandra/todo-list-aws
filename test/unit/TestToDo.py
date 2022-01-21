@@ -39,6 +39,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         #self.table_local = create_todo_table()
         print ('End: setUp')
 
+
     def tearDown(self):
         print ('---------------------')
         print ('Start: tearDown')
@@ -48,6 +49,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         #self.table_local.delete()
         self.dynamodb = None
         print ('End: tearDown')
+
 
     def test_table_exists(self):
         print ('---------------------')
@@ -77,6 +79,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         #                 'ResponseMetadata']['HTTPStatusCode'])
         print ('End: test_put_todo')
 
+
     def test_put_todo_error(self):
         print ('---------------------')
         print ('Start: test_put_todo_error')
@@ -91,6 +94,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertRaises(Exception, put_item(45, self.dynamodb))
         self.assertRaises(TypeError, put_item(True, self.dynamodb))
         print ('End: test_put_todo_error')
+
 
     def test_get_todo(self):
         print ('---------------------')
@@ -113,7 +117,8 @@ class TestDatabaseFunctions(unittest.TestCase):
             self.text,
             responseGet['text'])
         print ('End: test_get_todo')
-    
+
+
     def test_get_todo_error(self):
         print ('---------------------')
         print ('Start: test_get_todo_error')
@@ -151,7 +156,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         # From the response that contains the assumed role, get the temporary 
         # credentials that can be used to make subsequent API calls
         credentials=assumed_role_object['Credentials']
-        comprehend = boto3.client ('comprehend', 
+        comprehend = boto3.client('comprehend',
                     region_name='us-east-1',
                     aws_access_key_id=credentials['AccessKeyId'],
                     aws_secret_access_key=credentials['SecretAccessKey'],
@@ -187,13 +192,13 @@ class TestDatabaseFunctions(unittest.TestCase):
         # From the response that contains the assumed role, get the temporary 
         # credentials that can be used to make subsequent API calls
         credentials=assumed_role_object['Credentials']
-        comprehend = boto3.client ('comprehend', 
+        comprehend = boto3.client('comprehend',
                     region_name='us-east-1',
                     aws_access_key_id=credentials['AccessKeyId'],
                     aws_secret_access_key=credentials['SecretAccessKey'],
                     aws_session_token=credentials['SessionToken']
                 )
-        translate = boto3.client ('translate', 
+        translate = boto3.client('translate',
                     region_name='us-east-1',
                     aws_access_key_id=credentials['AccessKeyId'],
                     aws_secret_access_key=credentials['SecretAccessKey'],
