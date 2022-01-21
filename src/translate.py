@@ -4,8 +4,8 @@ import boto3
 import todoList
 import decimalencoder
 
-translate = boto3.client('translate')
-comprehend = boto3.client('comprehend')
+# translate = boto3.client('translate')
+# comprehend = boto3.client('comprehend')
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -25,27 +25,27 @@ def lambda_handler(event, context):
 
         # source_language es inferido con el servicio comprehend de AWS
         # https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/comprehend.html
-        source_language = comprehend.detect_dominant_language(
-            Text=item['text']
+        source_language = todoList.get_item_languaje(
+            item['text']
         )
         logger.info(source_language)
 
         # Ordeno la lista de lenguajes por el mejor score
-        order_languaje = sorted(
-                source_language["Languages"],
-                key=lambda k: k['Score'],
-                reverse=True)
-        logger.info(order_languaje)
+        # order_languaje = sorted(
+               # source_language["Languages"],
+               # key=lambda k: k['Score'],
+               # reverse=True)
+        # logger.info(order_languaje)
 
         # Obtengo el primero de la lista ordenada
-        thelangcode = order_languaje[0]['LanguageCode']
-        logger.info(thelangcode)
+        # thelangcode = order_languaje[0]['LanguageCode']
+        # logger.info(thelangcode)
 
         # traduccion del texto
-        result = translate.translate_text(
-                    Text=item['text'],
-                    SourceLanguageCode=thelangcode,
-                    TargetLanguageCode=target_language
+        result = todoList.translate_item(
+                    item['text'],
+                    source_language,
+                    target_language
                 )
         logging.info("Translation output: " + str(result))
     except Exception as e:
@@ -55,7 +55,7 @@ def lambda_handler(event, context):
     # Creo la esrtuctura de respuesta del tipo todolist
     itemtranslated = {
         'id': item['id'],
-        'text': result.get('TranslatedText'),
+        'text': result,
         'checked': item['checked']
     }
     response = {
