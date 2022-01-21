@@ -205,14 +205,14 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Response Languaje:' + str(responseLanguaje))
         print ('lenguaje origen:' + self.origin_lang + 
                 ' Lenguaje destino:'+self.dest_lang)
-        self.assertEqual(responseLanguaje['text'],self.origin_lang)
+        self.assertEqual(responseLanguaje, self.origin_lang)
         responseTranslate = translate_item(
                 self.text,
-                responseLanguaje['text'],
+                responseLanguaje,
                 self.dest_lang,
                 translate)
         print ('Response translate:' + str(responseTranslate))
-        self.assertEqual(responseTranslate,self.traduccion)
+        self.assertEqual(responseTranslate, self.traduccion)
         print ('End: test_translate---------------')
 
     
@@ -225,7 +225,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         comprehend = boto3.client('comprehend', region_name='us-east-1')
         self.assertRaises(
             Exception,
-            get_item_languaje(" ", comprehend))
+            get_item_languaje("*", comprehend))
         print ('End: test_err_get_languaje---------------')
     # ---------------------------------------------
 

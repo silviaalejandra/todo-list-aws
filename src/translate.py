@@ -42,7 +42,7 @@ def lambda_handler(event, context):
         # traduccion del texto
         result = todoList.translate_item(
                     item['text'],
-                    source_language['text'],
+                    source_language,
                     target_language
                 )
         logging.info("Translation output: " + str(result))
