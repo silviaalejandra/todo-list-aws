@@ -22,7 +22,7 @@ if [[ $? -ne 0 ]]
 then
     exit 1
 fi
-bandit -r src/*.py > reportbandit.txt
+bandit -r src/*.py -o bandit.out --msg-template "{relpath}:{line}: [{test_id}] {mdg}"
 if [[ $? -ne 0 ]]
 then
     exit 1
