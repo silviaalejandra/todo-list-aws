@@ -31,3 +31,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Se cambian los valores enviados para el control de error de vacío a nulo en el archivo test/unit/TestToDo.py
 -   Lineas 179 a 200
 -   Se actualiza la funcion src/todoList get_item. Se mueve la sentencia return Item dentro del IF para evitar enviar un objeto item cuando no hay en la base
+
+## [2.0.0] - 2022-01-20
+- Se introduce la funcionalidad de translate /src/translate.py
+- Se agregan en el pipeline de stage los informes de flake8 y bandit. Requisito: [Plugin Warning Next Generation](https://www.jenkins.io/doc/pipeline/steps/warnings-ng/)
+- Se actualiza template.yaml para la publicacion de la funcion translate
