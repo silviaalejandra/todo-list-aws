@@ -135,7 +135,7 @@ class TestApi(unittest.TestCase):
             jsonbody['text'], "Integration text example - TRADUCIR", "Error en la petición API a {url}"
         )
         #Test Translate TODO
-        url = BASE_URL+"/todos/"+ID_TODO+/"it"
+        url = BASE_URL+"/todos/"+ID_TODO+"/it"
         response = requests.get(url)
         json_response = response.json()
         print('Response Translate Todo: '+ str(json_response))
