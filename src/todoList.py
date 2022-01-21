@@ -73,7 +73,7 @@ def put_item(text, dynamodb=None):
 
 
 # obtengo lenguaje dominante
-def get_item_languaje(text, comprehend=None):
+def get_item_languaje(text, comprehend=None):  # pragma: no cover
     if not comprehend:
         comprehend = boto3.client('comprehend')
     try:
@@ -99,7 +99,7 @@ def get_item_languaje(text, comprehend=None):
 
 
 # Traduzco el texto ingresado
-def translate_item(text, langorig, langdest, translate=None):
+def translate_item(text, langorig, langdest, translate=None):  # pragma: no cover
     if not translate:
         translate = boto3.client('translate')
     try:
