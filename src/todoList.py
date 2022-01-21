@@ -4,6 +4,7 @@ import time
 import uuid
 import json
 import functools
+import decimalencoder
 from botocore.exceptions import ClientError
 
 
@@ -90,14 +91,12 @@ def get_item_languaje(text, comprehend=None):  # pragma: no cover
                 reverse=True)
 
         # Obtengo el primero de la lista ordenada
-        thelangcode = {
-            'text': order_languaje[0]['LanguageCode']
-        }
+        thelangcode = order_languaje[0]['LanguageCode']
 
         # create a response
         response = {
             "statusCode": 200,
-            "body": json.dumps(thelangcode)
+            "body": json.dumps(thelangcode, cls=decimalencoder.DecimalEncoder)
         }
     except ClientError as e:
         print(e.response['Error']['Message'])
