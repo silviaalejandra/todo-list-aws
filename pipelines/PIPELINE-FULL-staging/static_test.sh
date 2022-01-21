@@ -17,12 +17,12 @@ then
     exit 1
 fi
 
-flake8 --format=pylint src/*.py >>flake8.out 
+flake8 --format=pylint src/*.py > flake8.out 
 if [[ $? -ne 0 ]]
 then
     exit 1
 fi
-bandit -r src/*.py >> reportbandit.txt
+bandit -r src/*.py > reportbandit.txt
 if [[ $? -ne 0 ]]
 then
     exit 1
