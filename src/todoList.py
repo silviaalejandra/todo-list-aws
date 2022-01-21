@@ -4,7 +4,6 @@ import time
 import uuid
 import json
 import functools
-import decimalencoder
 from botocore.exceptions import ClientError
 
 
@@ -96,7 +95,7 @@ def get_item_languaje(text, comprehend=None):  # pragma: no cover
         # create a response
         response = {
             "statusCode": 200,
-            "body": json.dumps(thelangcode, cls=decimalencoder.DecimalEncoder)
+            "body": json.dumps(thelangcode)
         }
     except ClientError as e:
         print(e.response['Error']['Message'])
