@@ -31,6 +31,9 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.is_local = 'true'
         self.uuid = "123e4567-e89b-12d3-a456-426614174000"
         self.text = "Aprender DevOps y Cloud en la UNIR"
+        self.origin_lang = "es"
+        self.dest_lang = "it"
+        self.traduccion = "Scopri DevOps e Cloud presso UNIR"
 
         from src.todoList import create_todo_table
         self.table = create_todo_table(self.dynamodb)
@@ -143,10 +146,36 @@ class TestDatabaseFunctions(unittest.TestCase):
         responseLanguaje = get_item_languaje(
                 self.text)
         print ('Response Languaje:' + str(responseLanguaje))
-        self.assertEqual(self.text,'es')
+        self.assertEqual(responseLanguaje,self.origin_lang)
         print ('End: test_get_languaje---------------')
 
 
+    # test por tranlate.py-------------------------
+    # ---------------------------------------------
+    def test_translate(self):
+        print ('---------------------')
+        print ('Start: test_translate---------------')
+        from src.todoList import get_item_languaje
+        from src.todoList import translate_item
+        
+        # Testing file functions
+        # Table mock
+        print ('Texto:' + self.text)
+        responseLanguaje = get_item_languaje(
+                self.text)
+        print ('Response Languaje:' + str(responseLanguaje))
+        print ('lenguaje origen:' + self.origin_lang + 
+                ' Lenguaje destino:'+self.dest_lang)
+        self.assertEqual(responseLanguaje,self.origin_lang)
+        responseTranslate = translate_item(
+                self.text,
+                self.origin_lang,
+                self.dest_lang)
+        print ('Response translate:' + str(responseTranslate))
+        self.assertEqual(responseTranslate,self.traduccion)
+        print ('End: test_translate---------------')
+
+    
     # test por tranlate.py-------------------------
     # ---------------------------------------------
     def test_translate_err(self):

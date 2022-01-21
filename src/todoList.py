@@ -99,7 +99,7 @@ def get_item_languaje(text):
 
 # Traduzco el texto ingresado
 def translate_item(text, langorig, langdest):
-    translate = boto3.client('translate')
+    translate = boto3.client('translate', region_name='us-east-1')
     try:
         result = translate.translate_text(
                     Text=text,
