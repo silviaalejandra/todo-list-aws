@@ -146,21 +146,22 @@ class TestDatabaseFunctions(unittest.TestCase):
         
         # create an STS client object that represents a live connection to the 
         # STS service
-        sts_client = boto3.client('sts')
+        # sts_client = boto3.client('sts')
         # Call the assume_role method of the STSConnection object and pass the role
         # ARN and a role session name.
-        assumed_role_object=sts_client.assume_role(
-            RoleArn=os.environ['aws_role'],
-            RoleSessionName="LabRole"
-        )
+        # assumed_role_object=sts_client.assume_role(
+        # RoleArn=os.environ['aws_role'],
+        # RoleSessionName="LabRole"
+        # )
         # From the response that contains the assumed role, get the temporary 
         # credentials that can be used to make subsequent API calls
-        credentials=assumed_role_object['Credentials']
-        session=boto3.session(region_name='us-east-1',
-                    aws_access_key_id=credentials['AccessKeyId'],
-                    aws_secret_access_key=credentials['SecretAccessKey'],
-                    aws_session_token=credentials['SessionToken'])
-        comprehend = session.client('comprehend')
+        # credentials=assumed_role_object['Credentials']
+        # session=boto3.session(region_name='us-east-1',
+        # aws_access_key_id=credentials['AccessKeyId'],
+        # aws_secret_access_key=credentials['SecretAccessKey'],
+        # aws_session_token=credentials['SessionToken'])
+        # comprehend = session.client('comprehend')
+        comprehend = boto3.client('comprehend', region_name='us-east-1')
         # Testing file functions
         # Table mock
         print ('Texto:' + self.text)
