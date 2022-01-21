@@ -144,23 +144,6 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Start: test_get_languaje---------------')
         from src.todoList import get_item_languaje
         
-        # create an STS client object that represents a live connection to the 
-        # STS service
-        # sts_client = boto3.client('sts')
-        # Call the assume_role method of the STSConnection object and pass the role
-        # ARN and a role session name.
-        # assumed_role_object=sts_client.assume_role(
-        # RoleArn=os.environ['aws_role'],
-        # RoleSessionName="LabRole"
-        # )
-        # From the response that contains the assumed role, get the temporary 
-        # credentials that can be used to make subsequent API calls
-        # credentials=assumed_role_object['Credentials']
-        # session=boto3.session(region_name='us-east-1',
-        # aws_access_key_id=credentials['AccessKeyId'],
-        # aws_secret_access_key=credentials['SecretAccessKey'],
-        # aws_session_token=credentials['SessionToken'])
-        # comprehend = session.client('comprehend')
         comprehend = boto3.client('comprehend', region_name='us-east-1')
         # Testing file functions
         # Table mock
@@ -169,7 +152,6 @@ class TestDatabaseFunctions(unittest.TestCase):
                 self.text,
                 comprehend)
         print ('Response Languaje:' + str(responseLanguaje))
-        self.assertEqual(200, responseLanguaje['statusCode'])
         self.assertEqual(responseLanguaje['text'],self.origin_lang)
         print ('End: test_get_languaje---------------')
 
@@ -181,18 +163,6 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Start: test_translate---------------')
         from src.todoList import get_item_languaje
         from src.todoList import translate_item
-        # create an STS client object that represents a live connection to the 
-        # STS service
-        # sts_client = boto3.client('sts')
-        # Call the assume_role method of the STSConnection object and pass the role
-        # ARN and a role session name.
-        # assumed_role_object=sts_client.assume_role(
-        # RoleArn=os.environ['aws_role'],
-        # RoleSessionName="LabRole"
-        # )
-        # From the response that contains the assumed role, get the temporary 
-        # credentials that can be used to make subsequent API calls
-        # credentials=assumed_role_object['Credentials']
         comprehend = boto3.client('comprehend', region_name='us-east-1')
         translate = boto3.client('translate', region_name='us-east-1')
         
@@ -251,13 +221,13 @@ class TestDatabaseFunctions(unittest.TestCase):
                 translate))
         self.assertRaises(
             Exception,
-            translate_item(None,
+            translate_item("**",
                 "oo", 
                 "it",
                 translate))
         self.assertRaises(
             TypeError,
-            translate_item(None,
+            translate_item("**",
                 " ", 
                 "it",
                 translate))
