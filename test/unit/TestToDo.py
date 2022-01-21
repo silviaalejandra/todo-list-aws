@@ -225,12 +225,6 @@ class TestDatabaseFunctions(unittest.TestCase):
                 "oo", 
                 "it",
                 translate))
-        self.assertRaises(
-            TypeError,
-            translate_item("**",
-                " ", 
-                "it",
-                translate))
         print ('End: test_err_translate---------------')
     # ---------------------------------------------
  
