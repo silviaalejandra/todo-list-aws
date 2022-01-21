@@ -128,7 +128,8 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertRaises(Exception, get_item('', self.dynamodb))
         self.assertRaises(TypeError, get_item('#', self.dynamodb))
         print ('End: test_get_todo_error')
-    
+
+
     # test por tranlate.py-------------------------
     # ---------------------------------------------
     def test_languaje(self):
@@ -144,19 +145,21 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Response Languaje:' + str(responseLanguaje))
         self.assertEqual(self.text,'es')
         print ('End: test_get_languaje---------------')
-    
+
+
     # test por tranlate.py-------------------------
     # ---------------------------------------------
-    def test_languaje_err(self):
+    def test_translate_err(self):
         print ('---------------------')
         print ('Start: test_err_get_languaje---------------')
         from src.todoList import get_item_languaje
 
         self.assertRaises(
             Exception,
-            get_item_languaje(
-                ""))
+            get_item_languaje(" "))
         print ('End: test_err_get_languaje---------------')
+    # ---------------------------------------------
+
 
     def test_list_todo(self):
         print ('---------------------')

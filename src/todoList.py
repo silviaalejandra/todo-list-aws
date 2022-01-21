@@ -74,7 +74,7 @@ def put_item(text, dynamodb=None):
 
 # obtengo lenguaje dominante
 def get_item_languaje(text):
-    comprehend = boto3.client('comprehend')
+    comprehend = boto3.client('comprehend', region_name='us-east-1')
     try:
         # source_language es inferido con el servicio comprehend de AWS
         # https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/comprehend.html
