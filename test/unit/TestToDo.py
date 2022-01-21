@@ -156,12 +156,11 @@ class TestDatabaseFunctions(unittest.TestCase):
         # From the response that contains the assumed role, get the temporary 
         # credentials that can be used to make subsequent API calls
         credentials=assumed_role_object['Credentials']
-        comprehend = boto3.client('comprehend',
-                    region_name='us-east-1',
+        session=boto3.session(region_name='us-east-1',
                     aws_access_key_id=credentials['AccessKeyId'],
                     aws_secret_access_key=credentials['SecretAccessKey'],
-                    aws_session_token=credentials['SessionToken']
-                )
+                    aws_session_token=credentials['SessionToken'])
+        comprehend = session.client('comprehend')
         # Testing file functions
         # Table mock
         print ('Texto:' + self.text)
@@ -230,10 +229,33 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('---------------------')
         print ('Start: test_err_get_languaje---------------')
         from src.todoList import get_item_languaje
-
+        # create an STS client object that represents a live connection to the 
+        # STS service
+        sts_client = boto3.client('sts')
+        # Call the assume_role method of the STSConnection object and pass the role
+        # ARN and a role session name.
+        assumed_role_object=sts_client.assume_role(
+            RoleArn=os.environ['aws_role'],
+            RoleSessionName="LabRole"
+        )
+        # From the response that contains the assumed role, get the temporary 
+        # credentials that can be used to make subsequent API calls
+        credentials=assumed_role_object['Credentials']
+        comprehend = boto3.client('comprehend',
+                    region_name='us-east-1',
+                    aws_access_key_id=credentials['AccessKeyId'],
+                    aws_secret_access_key=credentials['SecretAccessKey'],
+                    aws_session_token=credentials['SessionToken']
+                )
+        translate = boto3.client('translate',
+                    region_name='us-east-1',
+                    aws_access_key_id=credentials['AccessKeyId'],
+                    aws_secret_access_key=credentials['SecretAccessKey'],
+                    aws_session_token=credentials['SessionToken']
+                )
         self.assertRaises(
             Exception,
-            get_item_languaje(" "), None)
+            get_item_languaje(" ", comprehend))
         print ('End: test_err_get_languaje---------------')
     # ---------------------------------------------
 
@@ -244,25 +266,42 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('---------------------')
         print ('Start: test_err_translate---------------')
         from src.todoList import translate_item
-
+        # create an STS client object that represents a live connection to the 
+        # STS service
+        sts_client = boto3.client('sts')
+        # Call the assume_role method of the STSConnection object and pass the role
+        # ARN and a role session name.
+        assumed_role_object=sts_client.assume_role(
+            RoleArn=os.environ['aws_role'],
+            RoleSessionName="LabRole"
+        )
+        # From the response that contains the assumed role, get the temporary 
+        # credentials that can be used to make subsequent API calls
+        credentials=assumed_role_object['Credentials']
+        translate = boto3.client('translate',
+                    region_name='us-east-1',
+                    aws_access_key_id=credentials['AccessKeyId'],
+                    aws_secret_access_key=credentials['SecretAccessKey'],
+                    aws_session_token=credentials['SessionToken']
+                )
         self.assertRaises(
             Exception,
             translate_item("prueba",
                 " ", 
                 "it",
-                None))
+                translate))
         self.assertRaises(
             Exception,
             translate_item("prueba",
                 "es", 
                 " ",
-                None))
+                translate))
         self.assertRaises(
             Exception,
             translate_item(None,
                 " ", 
                 "it",
-                None))
+                translate))
         print ('End: test_err_translate---------------')
     # ---------------------------------------------
  
