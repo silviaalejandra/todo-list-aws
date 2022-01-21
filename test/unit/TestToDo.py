@@ -240,17 +240,23 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertRaises(
             Exception,
             translate_item("prueba",
-                " ", 
+                "ii", 
                 "it",
                 translate))
         self.assertRaises(
             Exception,
             translate_item("prueba",
                 "es", 
-                " ",
+                "ee",
                 translate))
         self.assertRaises(
             Exception,
+            translate_item(None,
+                "oo", 
+                "it",
+                translate))
+        self.assertRaises(
+            TypeError,
             translate_item(None,
                 " ", 
                 "it",
