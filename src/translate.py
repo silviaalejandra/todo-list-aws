@@ -1,6 +1,6 @@
 import logging
 import json
-import boto3
+# import boto3
 import todoList
 import decimalencoder
 
@@ -31,10 +31,7 @@ def lambda_handler(event, context):
         logger.info(source_language)
 
         # Ordeno la lista de lenguajes por el mejor score
-        # order_languaje = sorted(
-               # source_language["Languages"],
-               # key=lambda k: k['Score'],
-               # reverse=True)
+        # order_languaje = sorted(source_language["Languages"], key=lambda k: k['Score'], reverse=True) 
         # logger.info(order_languaje)
 
         # Obtengo el primero de la lista ordenada

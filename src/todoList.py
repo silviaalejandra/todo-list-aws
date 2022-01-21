@@ -71,6 +71,7 @@ def put_item(text, dynamodb=None):
     else:
         return response
 
+
 # obtengo lenguaje dominante
 def get_item_languaje(text):
     comprehend = boto3.client('comprehend')
@@ -78,7 +79,7 @@ def get_item_languaje(text):
         # source_language es inferido con el servicio comprehend de AWS
         # https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/comprehend.html
         result = comprehend.detect_dominant_language(
-            Text= text
+            Text=text
         )
 
         # Ordeno la lista de lenguajes por el mejor score
@@ -95,6 +96,7 @@ def get_item_languaje(text):
     else:
         return thelangcode
 
+
 # Traduzco el texto ingresado
 def translate_item(text, langorig, langdest):
     translate = boto3.client('translate')
@@ -109,6 +111,7 @@ def translate_item(text, langorig, langdest):
         print(e.response['Error']['Message'])
     else:
         return result.get('TranslatedText')
+
 
 def update_item(key, text, checked, dynamodb=None):
     table = get_table(dynamodb)
