@@ -41,7 +41,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         # ARN and a role session name.
         assumed_role_object=sts_client.assume_role(
             RoleArn=os.environ['aws_role'],
-            RoleSessionName="AssumeRoleSession1"
+            RoleSessionName="LabRole"
         )
         # From the response that contains the assumed role, get the temporary 
         # credentials that can be used to make subsequent API calls
