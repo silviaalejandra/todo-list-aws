@@ -48,6 +48,16 @@ pipeline {
                                 mergeToOneReport: true, 
                                 path: '**/coverage.xml')])
                     }
+                    echo "Generating Report"
+                    script{ //Publicacion de resultados de prueba estatica
+                        def flake8 = scanForIssues tool: flake8(pattern: 'flake8.out')
+                        publishIssues issues: [flake8]
+                    }
+                    echo "Generating Security Report"
+                    script{ //Publicacion de resultados de prueba de seguridad
+                        def bandit = scanForIssues tool: pyLint(pattern: 'bandit.out')
+                        publishIssues issues: [bandit]
+                    }
                 }
             }
         }
