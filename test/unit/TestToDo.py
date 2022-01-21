@@ -34,18 +34,30 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.origin_lang = "es"
         self.dest_lang = "it"
         self.traduccion = "Scopri DevOps e Cloud presso UNIR"
+        # create an STS client object that represents a live connection to the 
+        # STS service
+        sts_client = boto3.client('sts')
+        # Call the assume_role method of the STSConnection object and pass the role
+        # ARN and a role session name.
+        assumed_role_object=sts_client.assume_role(
+            RoleArn=os.environ['aws_role'],
+            RoleSessionName="AssumeRoleSession1"
+        )
+        # From the response that contains the assumed role, get the temporary 
+        # credentials that can be used to make subsequent API calls
+        credentials=assumed_role_object['Credentials']
         self.comprehend = boto3.client ('comprehend', 
-                                region_name='us-east-1',
-                                aws_access_key_id=os.environ['aws_key_id'],
-                                aws_secret_access_key=os.environ['aws_key'],
-                                aws_session_token=os.environ['aws_token']
-                            )
+                    region_name='us-east-1',
+                    aws_access_key_id=credentials['AccessKeyId'],
+                    aws_secret_access_key=credentials['SecretAccessKey'],
+                    aws_session_token=credentials['SessionToken']
+                )
         self.translate = boto3.client ('translate', 
-                                region_name='us-east-1',
-                                aws_access_key_id=os.environ['aws_key_id'],
-                                aws_secret_access_key=os.environ['aws_key'],
-                                aws_session_token=os.environ['aws_token']
-                            )                            
+                    region_name='us-east-1',
+                    aws_access_key_id=credentials['AccessKeyId'],
+                    aws_secret_access_key=credentials['SecretAccessKey'],
+                    aws_session_token=credentials['SessionToken']
+                )                            
 
         from src.todoList import create_todo_table
         self.table = create_todo_table(self.dynamodb)
