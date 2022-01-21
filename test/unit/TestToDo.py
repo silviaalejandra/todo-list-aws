@@ -175,13 +175,36 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Start: test_translate---------------')
         from src.todoList import get_item_languaje
         from src.todoList import translate_item
-        
+        # create an STS client object that represents a live connection to the 
+        # STS service
+        sts_client = boto3.client('sts')
+        # Call the assume_role method of the STSConnection object and pass the role
+        # ARN and a role session name.
+        assumed_role_object=sts_client.assume_role(
+            RoleArn=os.environ['aws_role'],
+            RoleSessionName="LabRole"
+        )
+        # From the response that contains the assumed role, get the temporary 
+        # credentials that can be used to make subsequent API calls
+        credentials=assumed_role_object['Credentials']
+        comprehend = boto3.client ('comprehend', 
+                    region_name='us-east-1',
+                    aws_access_key_id=credentials['AccessKeyId'],
+                    aws_secret_access_key=credentials['SecretAccessKey'],
+                    aws_session_token=credentials['SessionToken']
+                )
+        translate = boto3.client ('translate', 
+                    region_name='us-east-1',
+                    aws_access_key_id=credentials['AccessKeyId'],
+                    aws_secret_access_key=credentials['SecretAccessKey'],
+                    aws_session_token=credentials['SessionToken']
+                )
         # Testing file functions
         # Table mock
         print ('Texto:' + self.text)
         responseLanguaje = get_item_languaje(
                 self.text,
-                self.comprehend)
+                comprehend)
         print ('Response Languaje:' + str(responseLanguaje))
         print ('lenguaje origen:' + self.origin_lang + 
                 ' Lenguaje destino:'+self.dest_lang)
@@ -190,7 +213,7 @@ class TestDatabaseFunctions(unittest.TestCase):
                 self.text,
                 self.origin_lang,
                 self.dest_lang,
-                self.translate)
+                translate)
         print ('Response translate:' + str(responseTranslate))
         self.assertEqual(responseTranslate,self.traduccion)
         print ('End: test_translate---------------')
@@ -198,17 +221,46 @@ class TestDatabaseFunctions(unittest.TestCase):
     
     # test por tranlate.py-------------------------
     # ---------------------------------------------
-    def test_translate_err(self):
+    def test_getlang_err(self):
         print ('---------------------')
         print ('Start: test_err_get_languaje---------------')
         from src.todoList import get_item_languaje
 
         self.assertRaises(
             Exception,
-            get_item_languaje(" "))
+            get_item_languaje(" "), None)
         print ('End: test_err_get_languaje---------------')
     # ---------------------------------------------
 
+
+    # test por tranlate.py-------------------------
+    # ---------------------------------------------
+    def test_translate_err(self):
+        print ('---------------------')
+        print ('Start: test_err_translate---------------')
+        from src.todoList import translate_item
+
+        self.assertRaises(
+            Exception,
+            translate_item("prueba",
+                " ", 
+                "it",
+                None))
+        self.assertRaises(
+            Exception,
+            translate_item("prueba",
+                "es", 
+                " ",
+                None))
+        self.assertRaises(
+            Exception,
+            translate_item(None,
+                " ", 
+                "it",
+                None))
+        print ('End: test_err_translate---------------')
+    # ---------------------------------------------
+ 
 
     def test_list_todo(self):
         print ('---------------------')
