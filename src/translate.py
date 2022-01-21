@@ -19,13 +19,13 @@ def lambda_handler(event, context):
     logger.info(target_language)
 
     try:
-        #The Lambda function calls the TranslateText operation and passes the
-        #review, the source language, and the target language to get the
-        #translated review.
+        # The Lambda function calls the TranslateText operation and passes the
+        # review, the source language, and the target language to get the
+        # translated review.
 
-        #source_language es inferido con el servicio comprehend de AWS
-        #https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/comprehend.html
-        source_language = comprehend.detect_dominant_language(   
+        # source_language es inferido con el servicio comprehend de AWS
+        # https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/comprehend.html
+        source_language = comprehend.detect_dominant_language(
             Text=item['text']
         )
         logger.info(source_language)
