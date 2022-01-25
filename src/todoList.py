@@ -185,7 +185,7 @@ def translate_item(key, language, translate=None, dynamodb=None):
 
         response = {
             "statusCode": 200,
-            # "body": json.dumps(itemtranslated, 
+            # "body": json.dumps(itemtranslated,
             #       cls=decimalencoder.DecimalEncoder)
             "body": json.dumps(item['Item'])
         }
