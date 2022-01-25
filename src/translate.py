@@ -1,64 +1,40 @@
-import logging
 import json
+import logging
 # import boto3
 import todoList
-import decimalencoder
+# import decimalencoder
 
-# translate = boto3.client('translate')
-# comprehend = boto3.client('comprehend')
+# logger = logging.getLogger()
+# logger.setLevel(logging.INFO)
 
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
+def translate(event, context):
+    # comprehend = boto3.client(service_name='comprehend')
+    # translate = boto3.client(service_name='translate')
+    
+    logging.info('inicio traducciones --------------------')
+    logging.info(event)
+    # data = json.loads(event['body'])
+    # logging.info('data --------------------')
+    # logging.info(data)
+    if 'id' not in event['pathParameters'] or 'language' not in event['pathParameters']:
+        logging.error("Validation Failed")
+        raise Exception("Couldn't translate the todo item.")
+        # SG20220117 Se elimina debido a la salida por el rise exception
+        # return
 
+    result = todoList.translate_item(
+        event['pathParameters']['id'], event['pathParameters']['language']  # ,
+        # translate, comprehend
+    )
+    # create a response
+    logging.info('resultado de la salida')
+    logging.info(result)
+    # response = {
+    #    "statusCode": 200,
+    #    "body": json.dumps(result,
+    #                       cls=decimalencoder.DecimalEncoder)
+    #}
 
-def lambda_handler(event, context):
-    logger.info(event)
-    item = todoList.get_item(event['pathParameters']['id'])
-    logger.info(item)
-    target_language = event['pathParameters']['language']
-    logger.info(target_language)
-
-    try:
-        # The Lambda function calls the TranslateText operation and passes the
-        # review, the source language, and the target language to get the
-        # translated review.
-
-        # source_language es inferido con el servicio comprehend de AWS
-        # https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/comprehend.html
-        source_language = todoList.get_item_languaje(
-            item['text']
-        )
-        logger.info(source_language)
-
-        # Ordeno la lista de lenguajes por el mejor score
-        # order_languaje = sorted(source_language["Languages"],
-        # key=lambda k: k['Score'], reverse=True)
-        # logger.info(order_languaje)
-
-        # Obtengo el primero de la lista ordenada
-        # thelangcode = order_languaje[0]['LanguageCode']
-        # logger.info(thelangcode)
-
-        # traduccion del texto
-        result = todoList.translate_item(
-                    item['text'],
-                    source_language,
-                    target_language
-                )
-        logging.info("Translation output: " + str(result))
-    except Exception as e:
-        # logger.error(response)
-        raise Exception("[ErrorMessage]: " + str(e))
-
-    # Creo la esrtuctura de respuesta del tipo todolist
-    itemtranslated = {
-        'id': item['id'],
-        'text': result,
-        'checked': item['checked']
-    }
-    response = {
-        "statusCode": 200,
-        "body": json.dumps(itemtranslated, cls=decimalencoder.DecimalEncoder)
-    }
-    logger.info(response)
-    return response
+    # return response
+    return result
+    
