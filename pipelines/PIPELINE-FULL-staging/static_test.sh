@@ -8,6 +8,7 @@ RAD_ERRORS=$(radon cc src -nc | wc -l)
 if [[ $RAD_ERRORS -ne 0 ]]
 then
     echo 'Ha fallado el análisis estatico de RADON - CC'
+    echo radon cc src -nc
     exit 1
 fi
 RAD_ERRORS=$(radon mi src -nc | wc -l)
