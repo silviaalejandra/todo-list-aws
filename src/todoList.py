@@ -4,7 +4,11 @@ import time
 import uuid
 import json
 import functools
-from botocore.exceptions import ClientError
+import logging
+from botocore.exceptions import ClientError, ParamValidationError
+
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
 
 
 def get_table(dynamodb=None):
@@ -21,6 +25,22 @@ def get_table(dynamodb=None):
     return table
 
 
+def get_comprehend(comprehend=None):
+    if not comprehend:
+        comprehend = boto3.client(service_name='comprehend')
+        # print('Instanciado--------------')
+    logger.info(comprehend)
+    return comprehend
+
+
+def get_translate(translate=None):
+    if not translate:
+        translate = boto3.client(service_name='translate')
+        # print('Instanciado--------------')
+    logger.info(translate)
+    return translate
+
+
 def get_item(key, dynamodb=None):
     table = get_table(dynamodb)
     try:
@@ -33,9 +53,10 @@ def get_item(key, dynamodb=None):
     except ClientError as e:
         print(e.response['Error']['Message'])
     else:
-        print('Result getItem:'+str(result))
         if 'Item' in result:
+            print('Result getItem:'+str(result))
             return result['Item']
+        return
 
 
 def get_items(dynamodb=None):
@@ -66,6 +87,113 @@ def put_item(text, dynamodb=None):
         }
 
     except ClientError as e:
+        print(e.response['Error']['Message'])
+    else:
+        return response
+
+
+def get_item_languaje(text, comprehend=None):
+    comprehend = get_comprehend(comprehend)
+    logger.info(comprehend)
+    try:
+        logger.info("Detect text lang: " + str(text))
+        response = comprehend.detect_dominant_language(
+                Text=text
+        )
+    except ClientError as e:
+        logger.exception("Couldn't detect languages.")
+        print(e.response['Error']['Message'])
+    else:
+        languages = response['Languages']
+        logger.info("Detected %s languages.", len(languages))
+
+        # Ordeno la lista de lenguajes por el mejor score
+        order_languaje = sorted(
+                response['Languages'],
+                key=lambda k: k['Score'],
+                reverse=True)
+        # Obtengo el primero de la lista ordenada
+        thelangcode = order_languaje[0]['LanguageCode']
+        return str(thelangcode)
+
+
+def translate_text(text, s_lang, t_lang, translate=None):
+    logging.info('get translateclient --------------------')
+    translate = get_translate(translate)
+    logger.info(translate)
+
+    try:
+        logger.info(translate)
+        logger.info("texto: " + text)
+        logger.info("Lenguaje entrada: " + str(s_lang))
+        logger.info("Lenguaje salida: " + str(t_lang))
+
+        response = translate.translate_text(
+                Text=text,
+                SourceLanguageCode=s_lang,
+                TargetLanguageCode=t_lang
+        )
+    except ClientError as e:
+        logger.exception("No fue posible realizar la traduccion")
+        print(e.response['Error']['Message'])
+    except ParamValidationError:
+        logger.exception("Problemas de parametros")
+    else:
+        logger.info("traduccion.")
+        logger.info(response)
+        return str(response['TranslatedText'])
+
+
+# Traduzco el texto ingresado
+# pre requisitos: ID y Lenguaje
+def translate_item(key, language, translate=None, dynamodb=None):
+    logging.info('inicio translate --------------------')
+    table = get_table(dynamodb)
+    logging.info('get table --------------------')
+    logging.info(table)
+
+    try:
+        logging.info('get item --------------------')
+        item = table.get_item(
+            Key={
+                'id': key
+            }
+        )
+        thetext = item['Item']['text']
+        logging.info(item)
+        logging.info(thetext)
+        logging.info('source languaje --------------------')
+        source_language = get_item_languaje(
+                        thetext
+        )
+        logging.info(source_language)
+
+        translateresult = translate_text(
+                thetext,
+                source_language,
+                language
+        )
+        logging.info("Translation output: " + str(translateresult))
+
+        # Creo la esrtuctura de respuesta del tipo todolist
+        # temtranslated = {
+        #    'id': key,
+        #    'text': translateresult,
+        #    'checked':item['Item']['checked']
+        # }
+        item['Item']['text'] = translateresult
+
+        response = {
+            "statusCode": 200,
+            # "body": json.dumps(itemtranslated,
+            #       cls=decimalencoder.DecimalEncoder)
+            "body": json.dumps(item['Item'])
+        }
+        # logger.info(response)
+        logging.info(response)
+
+    except ClientError as e:
+        logger.exception("Couldn't translate.")
         print(e.response['Error']['Message'])
     else:
         return response
@@ -143,6 +271,6 @@ def create_todo_table(dynamodb):
     # Wait until the table exists.
     table.meta.client.get_waiter('table_exists').wait(TableName=tableName)
     if (table.table_status != 'ACTIVE'):
-        raise AssertionError()
+        raise AssertionError()   # pragma: no cover
 
     return table

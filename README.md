@@ -65,7 +65,7 @@ docker network create sam
 docker run -p 8000:8000 --network sam --name dynamodb -d amazon/dynamodb-local
 
 ## Crear la tabla en local, para poder trabajar localmemte
-aws dynamodb create-table --table-name local-TodosDynamoDbTable --attribute-definitions AttributeName=id,AttributeType=S --key-schema AttributeName=id,KeyType=HASH --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 --endpoint-url http://localhost:8000
+aws dynamodb create-table --table-name local-TodosDynamoDbTable --region us-east-1 --attribute-definitions AttributeName=id,AttributeType=S --key-schema AttributeName=id,KeyType=HASH --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 --endpoint-url http://dynamodb:8000
 
 ## Empaquetar sam
 sam build # también se puede usar sam build --use-container si se dan problemas con las librerías de python
@@ -130,9 +130,9 @@ pipelines/common-steps/integration.sh
 ## Pipelines
 
 Para la implementación del CI/CD de la aplicación se utilizan los siguientes Pipelines:
-*   **pipeline_deploy_parameter: (pipelines/Jenkinsfile) Estre pipeline es el encargado de configurar entorno de staging o production en base a los parametros recibidos.
-*       En caso de que sea entorno stage se ejecutan las pruebas obtenidas desde PIPELINE-FULL-staging/
-*       En caso de que sea entorno prod se saltea la ejecucion de pruebassam
+* **pipeline_deploy_parameter***: (pipelines/Jenkinsfile) Este pipeline es el encargado de configurar entorno de staging o production en base a los parametros recibidos.
+  * En caso de que sea entorno stage se ejecutan las pruebas obtenidas desde PIPELINE-FULL-staging/
+  * En caso de que sea entorno prod se saltea la ejecucion de pruebas de regresion
 *	**PIPELINE-FULL-CD**: este pipeline es el encargado de enganchar los pipelines de staging y production,  con el objetivo de completar un ciclo de despliegue continuo desde un commit al repositorio de manera automática.
 
 
