@@ -10,7 +10,8 @@ from botocore.exceptions import ClientError, ParamValidationError
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
-def get_table(dynamodb=None): 
+
+def get_table(dynamodb=None):
     if not dynamodb:
         URL = os.environ['ENDPOINT_OVERRIDE']
         if URL:
@@ -24,7 +25,7 @@ def get_table(dynamodb=None):
     return table
 
 
-def get_comprehend(comprehend=None): 
+def get_comprehend(comprehend=None):
     if not comprehend:
         comprehend = boto3.client(service_name='comprehend')
         # print('Instanciado--------------')
@@ -32,7 +33,7 @@ def get_comprehend(comprehend=None):
     return comprehend
 
 
-def get_translate(translate=None): 
+def get_translate(translate=None):
     if not translate:
         translate = boto3.client(service_name='translate')
         # print('Instanciado--------------')
@@ -105,14 +106,14 @@ def get_item_languaje(text, comprehend=None):
     else:
         languages = response['Languages']
         logger.info("Detected %s languages.", len(languages))
-        
+
         # Ordeno la lista de lenguajes por el mejor score
         order_languaje = sorted(
                 response['Languages'],
                 key=lambda k: k['Score'],
                 reverse=True)
         # Obtengo el primero de la lista ordenada
-        thelangcode = order_languaje[0]['LanguageCode'] 
+        thelangcode = order_languaje[0]['LanguageCode']
         return str(thelangcode)
 
 
@@ -120,7 +121,7 @@ def translate_text(text, s_lang, t_lang, translate=None):
     logging.info('get translateclient --------------------')
     translate = get_translate(translate)
     logger.info(translate)
-    
+
     try:
         logger.info(translate)
         logger.info("texto: " + text)
@@ -145,12 +146,12 @@ def translate_text(text, s_lang, t_lang, translate=None):
 
 # Traduzco el texto ingresado
 # pre requisitos: ID y Lenguaje
-def translate_item(key, language, translate=None, dynamodb=None): 
+def translate_item(key, language, translate=None, dynamodb=None):
     logging.info('inicio translate --------------------')
     table = get_table(dynamodb)
     logging.info('get table --------------------')
     logging.info(table)
-    
+
     try:
         logging.info('get item --------------------')
         item = table.get_item(

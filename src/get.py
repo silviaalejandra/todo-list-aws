@@ -6,6 +6,7 @@ import todoList
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
+
 def get(event, context):
     # create a response
     logger.info(event)
