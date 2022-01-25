@@ -17,8 +17,8 @@ def translate(event, context):
     # data = json.loads(event['body'])
     # logging.info('data --------------------')
     # logging.info(data)
-    if 'id' not in event['pathParameters'] or 
-            'language' not in event['pathParameters']:
+    if 'id' not in event['pathParameters']
+        or 'language' not in event['pathParameters']:
         logging.error("Validation Failed")
         raise Exception("Couldn't translate the todo item.")
         # SG20220117 Se elimina debido a la salida por el rise exception
