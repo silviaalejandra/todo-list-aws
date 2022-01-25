@@ -167,15 +167,14 @@ def translate_item(key, language, translate=None, dynamodb=None):
                         thetext
         )
         logging.info(source_language)
-    
+
         translateresult = translate_text(
                 thetext,
                 source_language,
                 language
         )
         logging.info("Translation output: " + str(translateresult))
-        
-        
+
         # Creo la esrtuctura de respuesta del tipo todolist
         # temtranslated = {
         #    'id': key,
@@ -183,10 +182,11 @@ def translate_item(key, language, translate=None, dynamodb=None):
         #    'checked':item['Item']['checked']
         # }
         item['Item']['text'] = translateresult
-        
+
         response = {
             "statusCode": 200,
-            # "body": json.dumps(itemtranslated, cls=decimalencoder.DecimalEncoder)
+            # "body": json.dumps(itemtranslated, 
+            #       cls=decimalencoder.DecimalEncoder)
             "body": json.dumps(item['Item'])
         }
         # logger.info(response)
