@@ -60,8 +60,8 @@ class TestDatabaseFunctions(unittest.TestCase):
         
         # print (os.environ["AWS_DEFAULT_REGION"])
         # print (os.environ["ENDPOINT_OVERRIDE"])
-        endpoint = str (os.environ["ENDPOINT_OVERRIDE"])
-        region = str (os.environ["AWS_DEFAULT_REGION"])
+        endpoint = [str(i or '') for i in os.environ["ENDPOINT_OVERRIDE"]]
+        region = [str(i or '') for i in os.environ["AWS_DEFAULT_REGION"]]
         
         os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
         os.environ["ENDPOINT_OVERRIDE"] = "http://localhost:8001"
