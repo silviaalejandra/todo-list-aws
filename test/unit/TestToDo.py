@@ -59,6 +59,8 @@ class TestDatabaseFunctions(unittest.TestCase):
         from src.todoList import get_table
         
         os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
+        os.environ['ENDPOINT_OVERRIDE'] = ""
+        os.environ['DYNAMODB_TABLE'] = "${Stage}-TodosDynamoDbTable"
         result = get_table(None)
         self.assertIsNotNone(result)
         
