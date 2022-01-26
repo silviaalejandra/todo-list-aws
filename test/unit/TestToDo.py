@@ -59,7 +59,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         from src.todoList import get_table
 
         os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
-        # os.environ["ENDPOINT_OVERRIDE"] = "http://localhost:8000"
+        os.environ["ENDPOINT_OVERRIDE"] = "http://localhost:8001"
         result = get_table(None)
         self.assertIsNotNone(result)
         print ('End: test_get_table')
