@@ -58,9 +58,8 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Start: test_get_table')
         from src.todoList import get_table
         
-        os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
+        # os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
         os.environ['ENDPOINT_OVERRIDE'] = ""
-        os.environ['DYNAMODB_TABLE'] = "${Stage}-TodosDynamoDbTable"
         result = get_table(None)
         self.assertIsNotNone(result)
         
@@ -86,7 +85,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Start: test_get_translate')
         from src.todoList import get_translate
 
-        os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
+        # os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
         result = get_translate(None)
         self.assertIsNotNone(result)
         print ('End: test_get_translate')
@@ -97,7 +96,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Start: test_get_comprehend')
         from src.todoList import get_comprehend
 
-        os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
+        # os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
         result = get_comprehend(None)
         self.assertIsNotNone(result)
         print ('End: test_get comprehend')
