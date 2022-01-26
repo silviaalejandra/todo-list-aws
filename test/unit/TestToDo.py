@@ -293,6 +293,8 @@ class TestDatabaseFunctions(unittest.TestCase):
         idItem = json.loads(responsePut['body'])['id']
         print ('Id item:' + idItem)
         
+        # Se setea idioma para instancia de comprehend
+        os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
         self.assertRaises(Exception,
             translate_item(idItem,
                 "ii", 
@@ -304,7 +306,8 @@ class TestDatabaseFunctions(unittest.TestCase):
                 None, 
                 self.translate,
                 self.dynamodb))
-                
+
+        os.environ['AWS_DEFAULT_REGION'] = ''
         print ('End: test_err_translate')
  
 
