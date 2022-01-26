@@ -58,11 +58,11 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Start: test_get_table')
         from src.todoList import get_table
         
-        # os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
+        os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
         os.environ['ENDPOINT_OVERRIDE'] = ""
         result = get_table(None)
         self.assertIsNotNone(result)
-        
+        os.environ['AWS_DEFAULT_REGION'] = ''
         print ('End: test_get_table')
 
 
@@ -85,9 +85,10 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Start: test_get_translate')
         from src.todoList import get_translate
 
-        # os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
+        os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
         result = get_translate(None)
         self.assertIsNotNone(result)
+        os.environ['AWS_DEFAULT_REGION'] = ''
         print ('End: test_get_translate')
 
 
@@ -96,9 +97,11 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Start: test_get_comprehend')
         from src.todoList import get_comprehend
 
-        # os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
+        # se setea idioma para la instancia de comprehend
+        os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
         result = get_comprehend(None)
         self.assertIsNotNone(result)
+        os.environ['AWS_DEFAULT_REGION'] = ''
         print ('End: test_get comprehend')
 
 
