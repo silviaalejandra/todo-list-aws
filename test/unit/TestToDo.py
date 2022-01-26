@@ -57,11 +57,12 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('---------------------')
         print ('Start: test_get_table')
         from src.todoList import get_table
-
+        
         os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
-        # os.environ["ENDPOINT_OVERRIDE"] = "http://localhost:8000"
+        os.environ['ENDPOINT_OVERRIDE'] = ""
         result = get_table(None)
         self.assertIsNotNone(result)
+        os.environ['AWS_DEFAULT_REGION'] = ''
         print ('End: test_get_table')
 
 
@@ -87,6 +88,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
         result = get_translate(None)
         self.assertIsNotNone(result)
+        os.environ['AWS_DEFAULT_REGION'] = ''
         print ('End: test_get_translate')
 
 
@@ -95,9 +97,11 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Start: test_get_comprehend')
         from src.todoList import get_comprehend
 
+        # se setea idioma para la instancia de comprehend
         os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
         result = get_comprehend(None)
         self.assertIsNotNone(result)
+        os.environ['AWS_DEFAULT_REGION'] = ''
         print ('End: test_get comprehend')
 
 
@@ -289,6 +293,8 @@ class TestDatabaseFunctions(unittest.TestCase):
         idItem = json.loads(responsePut['body'])['id']
         print ('Id item:' + idItem)
         
+        # Se setea idioma para instancia de comprehend
+        os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
         self.assertRaises(Exception,
             translate_item(idItem,
                 "ii", 
@@ -300,7 +306,8 @@ class TestDatabaseFunctions(unittest.TestCase):
                 None, 
                 self.translate,
                 self.dynamodb))
-                
+
+        os.environ['AWS_DEFAULT_REGION'] = ''
         print ('End: test_err_translate')
  
 
